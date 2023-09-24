@@ -3,6 +3,7 @@
     "CLOUDINARY",
     "firestore",
     "negi",
-    "Udon"
+    "Udon",
+    "zustand"
   ]
 }

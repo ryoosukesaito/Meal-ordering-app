@@ -1,12 +1,11 @@
-require("dotenv").config();
-const { ApolloServer, gql } = require("apollo-server-express");
-const { doc, getDoc, setDoc, updateDoc } = require("firebase/firestore");
-const express = require("express");
-
-import { v4 as uuidv4 } from "uuid";
-const app = express();
-
 import { AdminDB, db } from "./firebaseBackend";
+import { ApolloServer, gql } from "apollo-server-express";
+import { doc, deleteDoc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import dotenv from "dotenv";
+import express from "express";
+
+const app = express();
+dotenv.config();
 
 const typeDefs = gql`
   type Items {
@@ -37,6 +36,8 @@ const typeDefs = gql`
       allergies: [String!]!
       image: String!
     ): Items
+
+    deleteItem(id: String!): Items
   }
 `;
 
@@ -50,7 +51,6 @@ const resolvers = {
   Mutation: {
     updateItem: async (_: any, args: any) => {
       try {
-        console.log("this is args>>", args);
         const { id, title, price, allergies, image } = args;
         await updateDoc(doc(db, "items", id), {
           title: title,
@@ -69,7 +69,6 @@ const resolvers = {
     },
     addNewItem: async (_: any, args: any) => {
       const { id, title, price, allergies, image } = args;
-
       try {
         await setDoc(doc(db, "items", id), {
           id: id,
@@ -82,6 +81,20 @@ const resolvers = {
         const newSetItemSnapshot = await getDoc(doc(db, "items", id));
         const newItem = newSetItemSnapshot.data();
         return newItem;
+      } catch (error) {
+        throw new Error(`Failed to set new item: ${error.message}`);
+      }
+    },
+
+    deleteItem: async (_: any, args: any) => {
+      const { id } = args;
+
+      try {
+        const deleteItemSnapshot = await getDoc(doc(db, "items", id));
+        const deletedItem = deleteItemSnapshot.data();
+        const response = await deleteDoc(doc(db, "items", id));
+
+        return deletedItem;
       } catch (error) {
         throw new Error(`Failed to set new item: ${error.message}`);
       }

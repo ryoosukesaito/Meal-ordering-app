@@ -3,19 +3,17 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
-import { useRouter } from "next/navigation";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        router.push("/admin/dashboard");
+        window.location.replace("/admin/dashboard");
         console.log("user>>>", user);
       })
       .catch((err) => {

@@ -59,3 +59,11 @@ export const ADD_NEW_ITEM = gql`
     }
   }
 `;
+
+export const DELETE_ITEM = gql`
+  mutation DeleteItem($id: String!) {
+    deleteItem(id: $id) {
+      id
+    }
+  }
+`;

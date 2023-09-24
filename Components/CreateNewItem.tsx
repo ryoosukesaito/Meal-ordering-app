@@ -2,27 +2,41 @@
 
 import { ADD_NEW_ITEM } from "@/graphql/queries";
 import { client } from "@/graphql/apollo-client";
-import uploadImage from "@/lib/uploadImage";
 import { useMutation } from "@apollo/client";
 import { PlusCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useItemsStore } from "@/store/ItemsStore";
 
 export function CreateNewItem() {
+  const [
+    title,
+    setTitle,
+    price,
+    setPrice,
+    file,
+    setFile,
+    allergies,
+    setAllergies,
+    allergyInput,
+    setAllergyInput,
+    setImageFile,
+  ] = useItemsStore((state) => [
+    state.title,
+    state.setTitle,
+    state.price,
+    state.setPrice,
+    state.file,
+    state.setFile,
+    state.allergies,
+    state.setAllergies,
+    state.allergyInput,
+    state.setAllergyInput,
+    state.setImageFile,
+  ]);
   const imagePickerRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
-  const [title, setTitle] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
-
-  const [allergyInput, setAllergyInput] = useState<string>("");
-  const [allergies, setAllergies] = useState<string[]>([]);
-  const [url, setUrl] = useState<string>("");
-
   const [loading, setLoading] = useState<boolean>(false);
-
   const [addNewItem, { error }] = useMutation(ADD_NEW_ITEM, {
     client,
   });
@@ -34,7 +48,6 @@ export function CreateNewItem() {
   const addAllergy = () => {
     if (allergyInput.trim() !== "") {
       setAllergies([...allergies, allergyInput]);
-      console.log(allergies);
       setAllergyInput("");
     }
   };
@@ -47,44 +60,30 @@ export function CreateNewItem() {
     setAllergies(updateAllergy);
   };
 
-  const setImageFile = async () => {
-    let url: string;
-    if (image) {
-      const imageData = await uploadImage(image);
-      url = imageData;
-      return url;
-    }
-  };
-
-  const getImageUrl = () => {
-    setUrl(url);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await setImageFile();
-      await addNewItem({
-        variables: {
-          id: uuidv4(),
-          title: title,
-          price: price,
-          allergies: allergies,
-          image: url,
-        },
-      });
+      if (file) {
+        const imageURL = await setImageFile(file);
+        await addNewItem({
+          variables: {
+            id: uuidv4(),
+            title: title,
+            price: price,
+            allergies: allergies,
+            image: imageURL,
+          },
+        });
+      }
+
       setLoading(false);
-      router.replace("/admin/dashboard");
+      window.location.replace("/admin/dashboard");
     } catch (error) {
       console.log("There is something wrong in addNewItem >> ", error);
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (loading && url === "") getImageUrl();
-  }, []);
 
   if (loading)
     return (
@@ -104,20 +103,20 @@ export function CreateNewItem() {
       >
         {/* top container */}
         <div>
-          <div className=" w-20 h-auto bg-slate-500">
-            {!image ? (
-              <div>No image..</div>
-            ) : (
+          <div className=" w-52 h-auto bg-slate-500">
+            {file ? (
               <Image
                 alt="item-image"
                 className="hover:grayscale cursor-not-allowed"
                 width={600}
                 height={600}
-                src={URL.createObjectURL(image)}
+                src={URL.createObjectURL(file)}
                 onClick={() => {
-                  setImage(null);
+                  setFile(null);
                 }}
               />
+            ) : (
+              <div>No image..</div>
             )}
           </div>
 
@@ -141,7 +140,7 @@ export function CreateNewItem() {
               hidden
               onChange={(e) => {
                 if (!e.target.files![0].type.startsWith("image/")) return;
-                setImage(e.target.files![0]);
+                setFile(e.target.files![0]);
               }}
             />
           </div>
@@ -197,6 +196,14 @@ export function CreateNewItem() {
         </div>
         <button type="submit"> Update</button>
       </form>
+      <button
+        type="button"
+        onClick={() => {
+          window.location.replace("/admin/dashboard");
+        }}
+      >
+        Cancel
+      </button>
     </div>
   );
 }

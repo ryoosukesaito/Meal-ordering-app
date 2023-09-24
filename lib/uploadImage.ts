@@ -1,17 +1,11 @@
-const uploadImage = async (file: File) => {
-  let publicId = "";
+import { CLD } from "@/cloudinary/cloudinaryConfig";
 
+const uploadImage = async (file: File) => {
   const formData = new FormData();
-  const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+  const url = `${CLD.URL}/upload`;
   formData.append("file", file);
-  formData.append(
-    "upload_preset",
-    `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
-  );
-  formData.append(
-    "cloud_name",
-    `${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}`
-  );
+  formData.append("upload_preset", `${CLD.UPLOAD_PRESET}`);
+  formData.append("cloud_name", `${CLD.NAME}`);
   formData.append("folder", "order-meal-app");
 
   try {
@@ -20,12 +14,10 @@ const uploadImage = async (file: File) => {
       body: formData,
     });
     const res = await response.json();
-    publicId = res.public_id;
+    return res.public_id;
   } catch (error) {
     console.error("uploading error >>> ", error);
   }
-
-  return publicId;
 };
 
 export default uploadImage;
