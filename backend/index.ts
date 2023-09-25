@@ -1,11 +1,11 @@
 import { AdminDB, db } from "./firebaseBackend";
-import { ApolloServer, gql } from "apollo-server-express";
 import { doc, deleteDoc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import dotenv from "dotenv";
-import express from "express";
+import "dotenv/config";
+const express = require("express");
+const { ApolloServer, gql } = require("apollo-server-express");
 
+require("dotenv").config();
 const app = express();
-dotenv.config();
 
 const typeDefs = gql`
   type Items {
