@@ -31,34 +31,34 @@ export function Item({ item }: Props) {
 	}
 
 	return (
-		<div className="rounded-lg shadow-lg border border-zinc-400  h-full ">
+		<div className="h-full rounded-lg border border-zinc-400  shadow-lg ">
 			<section className="h-52">
 				<CldImage
-					className="w-full rounded-md h-full object-cover"
+					className="h-full w-full rounded-md object-cover"
 					alt="item-image"
 					src={item.image}
 					width={300}
 					height={300}
 				/>
 			</section>
-			<section className="p-5 flex flex-col justify-between ">
+			<section className="flex flex-col justify-between p-5 ">
 				<div>
 					<div className="text-md px-3">{item.title}</div>
 					<div className="text-md px-3">$ {item.price}</div>
 				</div>
-				<div className="flex justify-between flex-col">
+				<div className="flex flex-col justify-between">
 					<div className="flex flex-row ">
 						{item.allergies.map((allergy: string, idx: number) => (
 							<div
 								key={idx}
-								className="rounded-full bg-[#FF7474] text-white px-5 py-1 text-sm mx-1 flex items-center justify-center"
+								className="mx-1 flex items-center justify-center rounded-full bg-[#FF7474] px-5 py-1 text-sm text-white"
 							>
 								{allergy}
 							</div>
 						))}
 					</div>
 					<button
-						className="rounded-full p-1 w-fit hover:bg-[#cbcbcb] hover:text-white"
+						className="w-fit rounded-full p-1 hover:bg-[#cbcbcb] hover:text-white"
 						onClick={handleModalOpen}
 					>
 						<PencilSquareIcon className="h-5 w-5" />

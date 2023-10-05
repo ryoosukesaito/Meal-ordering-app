@@ -15,11 +15,11 @@ export const Input: React.FC<InputValue> = ({ id }) => {
 		<div>
 			<p className=" text-2xl font-bold">{`${id === 0 ? 'Title' : 'Price'}`}</p>
 			<div className="flex flex-row items-center ">
-				{id === 1 && <p className="font-bold mr-2">$</p>}
+				{id === 1 && <p className="mr-2 font-bold">$</p>}
 				<input
 					type="text"
 					placeholder={`${id === 0 ? 'Title' : 'Price'}`}
-					className="border border-gray-300 rounded-md outline-none py-2 px-4 w-full my-3"
+					className="my-3 w-full rounded-md border border-gray-300 px-4 py-2 outline-none"
 					value={`${id === 0 ? title : price}`}
 					onChange={(e) =>
 						`${id === 0 ? setTitle(e.target.value) : setPrice(e.target.value)}`

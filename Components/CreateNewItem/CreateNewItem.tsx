@@ -66,20 +66,20 @@ export function CreateNewItem() {
 	if (error) return <div>{`${error.message}`}</div>
 
 	return (
-		<div className="w-full h-screen flex items-center justify-center">
-			<div className="rounded-xl border border-gray-500 p-10 shadow-lg w-full mx-16 my-10 h-5/6 flex justify-center items-center flex-col">
+		<div className="flex h-screen w-full items-center justify-center">
+			<div className="mx-16 my-10 flex h-5/6 w-full flex-col items-center justify-center rounded-xl border border-gray-500 p-10 shadow-lg">
 				<form
 					onSubmit={handleSubmit}
-					className="w-full h-full py-2 mb-3 flex flex-col items-center"
+					className="mb-3 flex h-full w-full flex-col items-center py-2"
 				>
 					{/* top container */}
-					<div className="grid grid-flow-row grid-cols-2 gap-5 h-fit w-full">
+					<div className="grid h-fit w-full grid-flow-row grid-cols-2 gap-5">
 						<div className="flex flex-col justify-start">
-							<div className="w-full h-full bg-slate-300 rounded-xl flex items-center justify-center">
+							<div className="flex h-full w-full items-center justify-center rounded-xl bg-slate-300">
 								{file ? (
 									<Image
 										alt="item-image"
-										className="hover:grayscale cursor-not-allowed"
+										className="cursor-not-allowed hover:grayscale"
 										width={600}
 										height={600}
 										src={URL.createObjectURL(file)}
@@ -107,13 +107,13 @@ export function CreateNewItem() {
 					{/* Top container end */}
 
 					{/* Allergies Input */}
-					<div className="mt-8 ml-5 w-full h-auto flex justify-start">
+					<div className="ml-5 mt-8 flex h-auto w-full justify-start">
 						<AllergiesInput />
 					</div>
 					<div className="pt-5">
 						<button
 							type="submit"
-							className="rounded px-8 py-2 cursor-pointer bg-[#FF7474] hover:bg-[#FFB9B9] text-white hover:text-[#8D8D8D]"
+							className="cursor-pointer rounded bg-[#FF7474] px-8 py-2 text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D]"
 						>
 							Update
 						</button>

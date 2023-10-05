@@ -32,7 +32,7 @@ export function Items() {
 	return (
 		<div className="rounded-lg bg-white p-7">
 			<Link href={'/admin/create'}>
-				<button className="rounded px-8 py-2 mb-12 cursor-pointer bg-[#FF7474] hover:bg-[#FFB9B9] text-white hover:text-[#8D8D8D]">
+				<button className="mb-12 cursor-pointer rounded bg-[#FF7474] px-8 py-2 text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D]">
 					Add
 				</button>
 			</Link>

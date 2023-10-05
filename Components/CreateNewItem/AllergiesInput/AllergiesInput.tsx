@@ -34,7 +34,7 @@ export const AllergiesInput = () => {
 				<p className=" text-2xl font-bold">Allergy</p>
 			</div>
 			{allergies?.map((allergy: string, idx: number) => (
-				<div key={idx} className="flex flex-row w-full">
+				<div key={idx} className="flex w-full flex-row">
 					{allergy}
 					<button onClick={handleDelete} value={idx}>
 						<XCircleIcon className="h-5 w-5" />

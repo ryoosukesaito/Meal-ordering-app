@@ -23,23 +23,23 @@ export function Login() {
 	}
 
 	return (
-		<div className="flex justify-center items-center h-screen">
-			<div className="p-10 min-w-fit">
-				<div className="text-4xl flex justify-center items-center mb-24 font-semibold">
+		<div className="flex h-screen items-center justify-center">
+			<div className="min-w-fit p-10">
+				<div className="mb-24 flex items-center justify-center text-4xl font-semibold">
 					<h1>Order Meal Services</h1>
 				</div>
 				<form
 					onSubmit={handleLogin}
 					id="login"
-					className="rounded-xl shadow-md bg-white p-10"
+					className="rounded-xl bg-white p-10 shadow-md"
 				>
-					<div className="text-2xl flex justify-center items-center mb-12">
+					<div className="mb-12 flex items-center justify-center text-2xl">
 						<h1>Admin</h1>
 					</div>
 
 					<div className=" p-5">
 						<input
-							className="border w-full py-3 px-3 mb-7 rounded-xl"
+							className="mb-7 w-full rounded-xl border px-3 py-3"
 							type="email"
 							placeholder="Email"
 							value={email}
@@ -48,7 +48,7 @@ export function Login() {
 						/>
 
 						<input
-							className="border w-full py-3 px-3 mb-7 rounded-xl"
+							className="mb-7 w-full rounded-xl border px-3 py-3"
 							type="password"
 							placeholder="Password"
 							value={password}
@@ -59,7 +59,7 @@ export function Login() {
 
 					<div className="text-center">
 						<button
-							className="rounded px-8 py-2 mb-12 cursor-pointer bg-[#FF7474] hover:bg-[#FFB9B9] text-white hover:text-[#8D8D8D]"
+							className="mb-12 cursor-pointer rounded bg-[#FF7474] px-8 py-2 text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D]"
 							type="submit"
 						>
 							Login

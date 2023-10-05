@@ -145,8 +145,8 @@ export function Modal() {
 				>
 					<div className="fixed inset-0 bg-black bg-opacity-25" />
 				</Transition.Child>
-				<div className="fixed overflow-y-auto inset-0">
-					<div className="flex items-center justify-center min-h-full text-center">
+				<div className="fixed inset-0 overflow-y-auto">
+					<div className="flex min-h-full items-center justify-center text-center">
 						<Transition.Child
 							as={Fragment}
 							enter="ease-out duration-300"
@@ -159,12 +159,12 @@ export function Modal() {
 							<Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 								<Dialog.Title
 									as="h3"
-									className="text-xl font-bold leading-6 text-gray-900 pb-2 flex justify-between items-center"
+									className="flex items-center justify-between pb-2 text-xl font-bold leading-6 text-gray-900"
 								>
 									Edit Item
 									<button
 										type="button"
-										className="rounded-lg px-6 py-2 mb-5 cursor-pointer bg-[#FF7474] hover:bg-[#FFB9B9] text-white hover:text-[#8D8D8D] text-sm focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+										className="mb-5 cursor-pointer rounded-lg bg-[#FF7474] px-6 py-2 text-sm text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D] focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 										onClick={() => {
 											handleDelete(item.id)
 										}}
@@ -173,13 +173,13 @@ export function Modal() {
 									</button>
 								</Dialog.Title>
 								<div className="flex flex-col items-center">
-									<div className="grid grid-cols-2 gap-4 w-full">
+									<div className="grid w-full grid-cols-2 gap-4">
 										{/* Image size */}
 										<div className=" h-72 w-full ">
 											{file ? (
 												<Image
 													alt="item-image"
-													className="w-full h-full object-cover rounded-2xl filter hover:grayscale transition-all duration-150 cursor-not-allowed"
+													className="h-full w-full cursor-not-allowed rounded-2xl object-cover filter transition-all duration-150 hover:grayscale"
 													width={600}
 													height={600}
 													src={URL.createObjectURL(file)}
@@ -190,7 +190,7 @@ export function Modal() {
 											) : (
 												<CldImage
 													alt="item-image"
-													className="w-full h-full object-cover rounded-2xl"
+													className="h-full w-full rounded-2xl object-cover"
 													src={item.image}
 													width={600}
 													height={600}
@@ -198,9 +198,9 @@ export function Modal() {
 											)}
 										</div>
 
-										<section className="mx-3 px-3 w-1/2">
+										<section className="mx-3 w-1/2 px-3">
 											{/* image input*/}
-											<div className="w-fit mb-3">
+											<div className="mb-3 w-fit">
 												<p className=" text-2xl font-bold">Image</p>
 
 												<button
@@ -208,7 +208,7 @@ export function Modal() {
 													onClick={() => {
 														imagePickerRef.current?.click()
 													}}
-													className="border rounded-full border-gray-300 w-fit flex flex-row items-center font-medium px-5 py-2 my-3 hover:bg-slate-300 hover:text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+													className="my-3 flex w-fit flex-row items-center rounded-full border border-gray-300 px-5 py-2 font-medium hover:bg-slate-300 hover:text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 												>
 													upload image
 													<div className="mx-3">
@@ -234,7 +234,7 @@ export function Modal() {
 												<div className="max-w-md">
 													<input
 														type="text"
-														className="border border-gray-300 rounded-md outline-none py-2 px-4 w-full my-3"
+														className="my-3 w-full rounded-md border border-gray-300 px-4 py-2 outline-none"
 														placeholder={item.title}
 														value={title}
 														onChange={(e) => setTitle(e.target.value)}
@@ -246,10 +246,10 @@ export function Modal() {
 											<div className="my-3">
 												<p className=" text-2xl font-bold">Price</p>
 												<div className="flex flex-row items-center ">
-													<p className="font-bold mr-2">$</p>
+													<p className="mr-2 font-bold">$</p>
 													<input
 														type="text"
-														className="border border-gray-300 rounded-md outline-none py-2 px-4 w-full my-3"
+														className="my-3 w-full rounded-md border border-gray-300 px-4 py-2 outline-none"
 														placeholder={price}
 														value={price}
 														onChange={(e) => setPrice(e.target.value)}
@@ -259,18 +259,18 @@ export function Modal() {
 										</section>
 									</div>
 
-									<section className="m-5 flex flex-col w-full ">
-										<div className="flex flex-row my-4 w-full max-w-lg justify-start flex-wrap">
+									<section className="m-5 flex w-full flex-col ">
+										<div className="my-4 flex w-full max-w-lg flex-row flex-wrap justify-start">
 											{allergies?.map((allergy: string, idx: number) => (
 												<div
 													key={idx}
-													className="flex flex-row w-fit items-center rounded-full pl-6 pr-1 py-1 border-[#FF7474] text-white bg-[#FF7474] hover:bg-[#ffe3e3] hover:text-[#8D8D8D] group/btn"
+													className="group/btn flex w-fit flex-row items-center rounded-full border-[#FF7474] bg-[#FF7474] py-1 pl-6 pr-1 text-white hover:bg-[#ffe3e3] hover:text-[#8D8D8D]"
 												>
 													{allergy}
 													<button
 														onClick={deleteAllergy}
 														value={idx}
-														className="text-[#FF7474] pr-1 invisible group-hover/btn:visible"
+														className="invisible pr-1 text-[#FF7474] group-hover/btn:visible"
 													>
 														<XMarkIcon className="h-5 w-5" />
 													</button>
@@ -278,11 +278,11 @@ export function Modal() {
 											))}
 										</div>
 
-										<div className="flex flex-row max-w-sm">
+										<div className="flex max-w-sm flex-row">
 											<input
 												type="text"
 												placeholder="Add allergy"
-												className="border border-gray-300 rounded-md outline-none py-2 px-4"
+												className="rounded-md border border-gray-300 px-4 py-2 outline-none"
 												value={allergyInput}
 												onChange={handleAllergyInputChange}
 											/>

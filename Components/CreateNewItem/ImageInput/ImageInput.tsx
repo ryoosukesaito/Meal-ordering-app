@@ -16,7 +16,7 @@ export const ImageInput: React.FC = () => {
 				onClick={() => {
 					imagePickerRef.current?.click()
 				}}
-				className="border rounded-full border-gray-300 w-fit flex flex-row items-center font-medium px-5 py-2 my-3 hover:bg-slate-300 hover:text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+				className="my-3 flex w-fit flex-row items-center rounded-full border border-gray-300 px-5 py-2 font-medium hover:bg-slate-300 hover:text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 			>
 				upload image
 			</button>
