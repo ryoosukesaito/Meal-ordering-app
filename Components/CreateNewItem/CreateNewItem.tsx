@@ -1,16 +1,18 @@
 'use client'
 
-import { ADD_NEW_ITEM } from '@/graphql/queries'
-import { client } from '@/graphql/apollo-client'
 import { useMutation } from '@apollo/client'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+
+import { client } from '@/graphql/apollo-client'
+import { ADD_NEW_ITEM } from '@/graphql/queries'
 import { useItemsStore } from '@/store/ItemsStore'
-import Link from 'next/link'
-import { Input } from './Input/Input'
-import { ImageInput } from './ImageInput/ImageInput'
+
 import { AllergiesInput } from './AllergiesInput/AllergiesInput'
+import { ImageInput } from './ImageInput/ImageInput'
+import { Input } from './Input/Input'
 
 export function CreateNewItem() {
 	const [title, price, file, setFile, allergies, setImageFile] = useItemsStore(

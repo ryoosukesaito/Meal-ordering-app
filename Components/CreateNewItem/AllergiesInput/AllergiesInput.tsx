@@ -1,5 +1,6 @@
-import { useItemsStore } from '@/store/ItemsStore'
 import { PlusCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
+
+import { useItemsStore } from '@/store/ItemsStore'
 
 export const AllergiesInput = () => {
 	const [allergies, setAllergies, allergyInput, setAllergyInput] =

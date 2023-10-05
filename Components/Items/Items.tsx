@@ -1,13 +1,14 @@
 'use client'
 
-import { Item } from './Item/Item'
-
 import { useQuery } from '@apollo/client'
-import { GET_ALL_ITEMS } from '@/graphql/queries'
-import { client } from '@/graphql/apollo-client'
-import { useItemsStore } from '@/store/ItemsStore'
-import { useEffect } from 'react'
 import Link from 'next/link'
+import { useEffect } from 'react'
+
+import { client } from '@/graphql/apollo-client'
+import { GET_ALL_ITEMS } from '@/graphql/queries'
+import { useItemsStore } from '@/store/ItemsStore'
+
+import { Item } from './Item/Item'
 export function Items() {
 	const { loading, error, data } = useQuery(GET_ALL_ITEMS, {
 		client

@@ -1,10 +1,11 @@
-import { AdminDB, db } from './firebaseBackend'
-import { doc, deleteDoc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
-import 'dotenv/config'
-import express from 'express'
 import { ApolloServer, gql } from 'apollo-server-express'
-
 import dotenv from 'dotenv'
+import express from 'express'
+import { doc, deleteDoc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+
+import { AdminDB, db } from './firebaseBackend'
+
+import 'dotenv/config'
 dotenv.config()
 const app = express()
 
@@ -46,11 +47,11 @@ const resolvers = {
 	Query: {
 		items: async () => {
 			const itemsSnapshot = await AdminDB.collection('items').get()
-			return itemsSnapshot.docs.map((doc: any) => doc.data())
+			return itemsSnapshot.docs.map((doc) => doc.data())
 		}
 	},
 	Mutation: {
-		updateItem: async (_: any, args: any) => {
+		updateItem: async (_, args) => {
 			try {
 				const { id, title, price, allergies, image } = args
 				await updateDoc(doc(db, 'items', id), {
@@ -68,7 +69,7 @@ const resolvers = {
 				throw new Error(`Failed to update item: ${error.message}`)
 			}
 		},
-		addNewItem: async (_: any, args: any) => {
+		addNewItem: async (_, args) => {
 			const { id, title, price, allergies, image } = args
 			try {
 				await setDoc(doc(db, 'items', id), {
@@ -87,7 +88,7 @@ const resolvers = {
 			}
 		},
 
-		deleteItem: async (_: any, args: any) => {
+		deleteItem: async (_, args) => {
 			const { id } = args
 
 			try {

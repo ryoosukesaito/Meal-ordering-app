@@ -1,5 +1,6 @@
-import { useItemsStore } from '@/store/ItemsStore'
 import { useRef } from 'react'
+
+import { useItemsStore } from '@/store/ItemsStore'
 
 export const ImageInput: React.FC = () => {
 	const [setFile] = useItemsStore((state) => [state.setFile])

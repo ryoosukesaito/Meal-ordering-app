@@ -2,6 +2,7 @@
 
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { CldImage } from 'next-cloudinary'
+
 import { useItemsStore } from '@/store/ItemsStore'
 import { useModalStore } from '@/store/ModalStore'
 
