@@ -20,6 +20,7 @@ const typeDefs = gql`
 
 	type Query {
 		items: [Items]
+		getItemById(id: String!): Items
 	}
 
 	type Mutation {
@@ -48,6 +49,11 @@ const resolvers = {
 		items: async () => {
 			const itemsSnapshot = await AdminDB.collection('items').get()
 			return itemsSnapshot.docs.map((doc) => doc.data())
+		},
+		getItemById: async (_, { id }) => {
+			const itemSnapshot = await AdminDB.collection('items').doc(id).get()
+			const itemData = itemSnapshot.data()
+			return itemData
 		}
 	},
 	Mutation: {

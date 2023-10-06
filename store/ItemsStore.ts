@@ -7,6 +7,7 @@ interface ItemsState {
 		items: ItemsType[]
 	}
 	item: ItemsType
+	id: string
 	title: string
 	price: string
 	image: string
@@ -15,6 +16,7 @@ interface ItemsState {
 	allergyInput: string
 	setItemsList: (data: object) => void
 	setItemAsProps: (props: ItemsType) => void
+	setId: (id: string) => void
 	setTitle: (title: string) => void
 	setPrice: (price: string) => void
 	setImage: (image: string) => void
@@ -37,6 +39,7 @@ export const useItemsStore = create<ItemsState>((set, get) => ({
 		allergies: [],
 		image: ''
 	},
+	id: '',
 	title: '',
 	price: '',
 	image: '',
@@ -52,6 +55,7 @@ export const useItemsStore = create<ItemsState>((set, get) => ({
 			}
 	},
 	setItemAsProps: (props: ItemsType) => set({ item: props }),
+	setId: (str: string) => set({ id: str }),
 	setTitle: (input: string) => set({ title: input }),
 	setPrice: (input: string) => set({ price: input }),
 	setImage: (input: string) => set({ image: input }),

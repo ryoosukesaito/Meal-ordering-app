@@ -12,6 +12,28 @@ export const GET_ALL_ITEMS = gql`
 	}
 `
 
+export const GET_ALL_ITEMS_USER = gql`
+	query {
+		items {
+			id
+			title
+			price
+			image
+		}
+	}
+`
+export const GET_ITEM_BY_ID_USER = gql`
+	query GetItemById($id: String!) {
+		getItemById(id: $id) {
+			id
+			title
+			price
+			allergies
+			image
+		}
+	}
+`
+
 export const UPDATE_ITEM = gql`
 	mutation UpdateItem(
 		$id: String!

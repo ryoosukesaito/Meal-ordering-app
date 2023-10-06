@@ -1,6 +1,8 @@
 import { Modal } from '@/Components/Modal'
+import { UserModal } from '@/Components/UserModal/UserModal'
 
 import './globals.css'
+
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -18,6 +20,7 @@ export default function RootLayout({
 			<body className="bg-[#F8F8F8]">
 				{children}
 				<Modal />
+				<UserModal />
 			</body>
 		</html>
 	)
