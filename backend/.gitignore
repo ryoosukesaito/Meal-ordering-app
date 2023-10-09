@@ -130,3 +130,4 @@ dist
 .pnp.*
 
 fb-adminsdk.json
+package-lock.json

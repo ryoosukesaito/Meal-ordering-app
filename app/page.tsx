@@ -1,9 +1,9 @@
-import { Login } from "@/Components/Login";
+import { UserItems } from '@/Components/UserItems/UserItems'
 
 export default function Home() {
-  return (
-    <main>
-      <Login />
-    </main>
-  );
+	return (
+		<main>
+			<UserItems />
+		</main>
+	)
 }

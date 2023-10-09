@@ -1,3 +1,69 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
+  "plugins": ["import","unused-imports","@typescript-eslint"],
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended", 
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "ignorePatterns": ["**/next.config.js", "**/postcss.config.js"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "import/order": [
+    "warn",
+    {
+      "groups": [
+        "builtin",
+        "external",
+        "internal",
+        ["parent","sibling"],
+        "object",
+        "type",
+        "index"
+      ],
+      "newlines-between": "always",
+      "pathGroupsExcludedImportTypes": ["builtin"],
+      "pathGroups": [
+        {
+          "pattern": "@/utils/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "@/lib/**",
+          "group": "internal",
+          "position": "after"
+        },
+        {
+          "pattern": "@/hooks/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "@/components/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "@/const/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "@/type/**",
+          "group": "internal",
+          "position": "before"
+        }
+      ],
+      "alphabetize": {
+        "order": "asc"
+      }
+    }
+  ]}
 }
