@@ -7,6 +7,9 @@ interface ModalState {
 	isOpenUserModal: boolean
 	openUserModal: () => void
 	closeUserModal: () => void
+	cartVisible: boolean
+	openCart: () => void
+	closeCart: () => void
 }
 
 export const useModalStore = create<ModalState>()((set) => ({
@@ -15,5 +18,8 @@ export const useModalStore = create<ModalState>()((set) => ({
 	closeModal: () => set({ isOpen: false }),
 	isOpenUserModal: false,
 	openUserModal: () => set({ isOpenUserModal: true }),
-	closeUserModal: () => set({ isOpenUserModal: false })
+	closeUserModal: () => set({ isOpenUserModal: false }),
+	cartVisible: false,
+	openCart: () => set({ cartVisible: true }),
+	closeCart: () => set({ cartVisible: false })
 }))

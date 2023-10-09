@@ -7,31 +7,33 @@ import { CldImage } from 'next-cloudinary'
 import { Fragment, useEffect, useState } from 'react'
 
 import { client } from '@/graphql/apollo-client'
-import { GET_ITEM_BY_ID_USER } from '@/graphql/queries'
+import { GET_ALLERGIES_BY_ID_USER } from '@/graphql/queries'
+import { useCartStore } from '@/store/CartStore'
 import { useItemsStore } from '@/store/ItemsStore'
 import { useModalStore } from '@/store/ModalStore'
 
 export function UserModal() {
-	const [item, id, setItemAsProps] = useItemsStore((state) => [
-		state.item,
-		state.id,
-		state.setItemAsProps
-	])
+	const [item] = useItemsStore((state) => [state.item])
 	const [isOpenUserModal, closeUserModal] = useModalStore((state) => [
 		state.isOpenUserModal,
 		state.closeUserModal
 	])
+	const [cartItems, setCartItems] = useCartStore((state) => [
+		state.cartItems,
+		state.setCartItems
+	])
 
-	const { loading, error, data } = useQuery(GET_ITEM_BY_ID_USER, {
+	const { loading, error, data } = useQuery(GET_ALLERGIES_BY_ID_USER, {
 		client,
-		variables: { id: id }
+		variables: { id: item.id }
 	})
 
 	const [count, setCount] = useState(0)
+	const [allergies, setAllergies] = useState([])
 
-	const setItemByID = () => {
+	const setAllergiesByID = () => {
 		if (!data) return
-		setItemAsProps(data.getItemById)
+		setAllergies(data.getAllergiesById.allergies)
 	}
 
 	const handleClose = () => {
@@ -42,23 +44,31 @@ export function UserModal() {
 	const handleCounter = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const Operations = e.currentTarget.value
 		if (Operations === 'minus' && count > 0) {
-			setCount(count - 1)
+			setCount((prev) => prev - 1)
 		} else if (Operations === 'plus') {
-			setCount(count + 1)
+			setCount((prev) => prev + 1)
 		}
 	}
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		console.log(count)
-		console.log(item.id)
 
-		// handleClose()
+		const orderedItemData: CartItem = {
+			id: item.id,
+			title: item.title,
+			price: item.price,
+			image: item.image,
+			count: count
+		}
+		const updatedItemData = [...cartItems.items, orderedItemData]
+
+		setCartItems(updatedItemData)
+		handleClose()
 	}
 
 	useEffect(() => {
-		setItemByID()
-	}, [item])
+		setAllergiesByID()
+	}, [])
 
 	return (
 		<Transition appear show={isOpenUserModal} as={Fragment}>
@@ -80,7 +90,7 @@ export function UserModal() {
 				>
 					<div className="fixed inset-0 bg-white bg-opacity-25" />
 				</Transition.Child>
-				<div className="fixed inset-0 overflow-y-auto">
+				<div className="fixed inset-0 overflow-hidden">
 					<div className="flex min-h-full items-center justify-center text-center">
 						<Transition.Child
 							as={Fragment}
@@ -117,16 +127,14 @@ export function UserModal() {
 
 											<section className="m-5 flex w-full flex-col ">
 												<div className="my-4 flex w-full max-w-lg flex-row flex-wrap justify-start">
-													{item.allergies?.map(
-														(allergy: string, idx: number) => (
-															<div
-																key={idx}
-																className="mr-2 flex w-fit flex-row items-center rounded-full border border-[#FF7474] bg-white px-4 py-1 text-[#FF7474]"
-															>
-																{allergy}
-															</div>
-														)
-													)}
+													{allergies?.map((allergy: string, idx: number) => (
+														<div
+															key={idx}
+															className="mr-2 flex w-fit flex-row items-center rounded-full border border-[#FF7474] bg-white px-4 py-1 text-[#FF7474]"
+														>
+															{allergy}
+														</div>
+													))}
 												</div>
 											</section>
 											<div className="flex max-w-sm flex-row">
@@ -153,7 +161,8 @@ export function UserModal() {
 
 											<button
 												type="submit"
-												className="flex justify-center rounded-full border bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+												disabled={count === 0}
+												className="flex justify-center rounded-full border bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
 											>
 												Add cart
 											</button>

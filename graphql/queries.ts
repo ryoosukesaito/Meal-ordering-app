@@ -22,14 +22,10 @@ export const GET_ALL_ITEMS_USER = gql`
 		}
 	}
 `
-export const GET_ITEM_BY_ID_USER = gql`
-	query GetItemById($id: String!) {
-		getItemById(id: $id) {
-			id
-			title
-			price
+export const GET_ALLERGIES_BY_ID_USER = gql`
+	query GetAllergiesById($id: String!) {
+		getAllergiesById(id: $id) {
 			allergies
-			image
 		}
 	}
 `

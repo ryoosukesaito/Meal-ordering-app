@@ -5,3 +5,11 @@ interface ItemsType {
 	allergies: string[]
 	image: string
 }
+
+interface CartItem {
+	id: string
+	title: string
+	price: string
+	image: string
+	count: number
+}

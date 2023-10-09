@@ -17,10 +17,13 @@ const typeDefs = gql`
 		allergies: [String]!
 		image: String!
 	}
+	type Allergies {
+		allergies: [String]
+	}
 
 	type Query {
 		items: [Items]
-		getItemById(id: String!): Items
+		getAllergiesById(id: String!): Allergies
 	}
 
 	type Mutation {
@@ -50,7 +53,7 @@ const resolvers = {
 			const itemsSnapshot = await AdminDB.collection('items').get()
 			return itemsSnapshot.docs.map((doc) => doc.data())
 		},
-		getItemById: async (_, { id }) => {
+		getAllergiesById: async (_, { id }) => {
 			const itemSnapshot = await AdminDB.collection('items').doc(id).get()
 			const itemData = itemSnapshot.data()
 			return itemData

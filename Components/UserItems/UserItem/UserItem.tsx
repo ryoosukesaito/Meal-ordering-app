@@ -15,16 +15,14 @@ export function UserItem({ item }: Props) {
 	])
 	const openUserModal = useModalStore((state) => state.openUserModal)
 
-	const handleModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
-		const id = e.currentTarget.value
-		setId(id)
+	const handleModalOpen = () => {
 		setItemAsProps(item)
 		openUserModal()
 	}
 
 	return (
 		<>
-			<button onClick={handleModalOpen} value={item.id}>
+			<button onClick={handleModalOpen}>
 				<div className="h-full rounded-lg border border-zinc-400  shadow-lg hover:cursor-pointer">
 					<section className="h-52">
 						<CldImage
