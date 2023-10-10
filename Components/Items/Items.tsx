@@ -21,7 +21,6 @@ export function Items() {
 	const getItem = () => {
 		setItemsList(data)
 	}
-	console.log(itemsList.items)
 
 	useEffect(() => {
 		getItem()

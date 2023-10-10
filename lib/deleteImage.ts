@@ -33,7 +33,7 @@ const deleteImage = async (image: string) => {
 			body: formData
 		})
 	} catch (error) {
-		console.log('error from delete image>>> ', error)
+		console.log('error from deleteImage.ts >>> ', error)
 	}
 }
 
