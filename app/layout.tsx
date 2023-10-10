@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className="bg-[#F8F8F8]">
+			<body className="no-scrollbar bg-[#F8F8F8]">
 				{children}
 				<Modal />
 				<UserModal />

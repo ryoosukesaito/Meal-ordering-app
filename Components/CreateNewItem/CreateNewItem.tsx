@@ -1,13 +1,12 @@
 'use client'
 
-import { useMutation } from '@apollo/client'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { client } from '@/graphql/apollo-client'
-import { ADD_NEW_ITEM } from '@/graphql/queries'
+import { db } from '@/firebase'
 import { useItemsStore } from '@/store/ItemsStore'
 
 import { AllergiesInput } from './AllergiesInput/AllergiesInput'
@@ -15,36 +14,50 @@ import { ImageInput } from './ImageInput/ImageInput'
 import { Input } from './Input/Input'
 
 export function CreateNewItem() {
-	const [title, price, file, setFile, allergies, setImageFile] = useItemsStore(
-		(state) => [
-			state.title,
-			state.price,
-			state.file,
-			state.setFile,
-			state.allergies,
-			state.setImageFile
-		]
-	)
+	const [
+		title,
+		setTitle,
+		price,
+		setPrice,
+		file,
+		setFile,
+		allergies,
+		setAllergies,
+		setImageFile
+	] = useItemsStore((state) => [
+		state.title,
+		state.setTitle,
+		state.price,
+		state.setPrice,
+		state.file,
+		state.setFile,
+		state.allergies,
+		state.setAllergies,
+		state.setImageFile
+	])
+
 	const [loading, setLoading] = useState<boolean>(false)
-	const [addNewItem, { error }] = useMutation(ADD_NEW_ITEM, {
-		client
-	})
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setLoading(true)
 		try {
+			// Create a new item
 			if (file) {
 				const imageURL = await setImageFile(file)
-				await addNewItem({
-					variables: {
-						id: uuidv4(),
-						title: title,
-						price: price,
-						allergies: allergies,
-						image: imageURL
-					}
+				const id = uuidv4()
+
+				await setDoc(doc(db, 'items', id), {
+					id: id,
+					title: title,
+					price: price,
+					allergies: allergies,
+					image: imageURL
 				})
+
+				const newSetItemSnapshot = await getDoc(doc(db, 'items', id))
+				const newItem = newSetItemSnapshot.data()
+				console.log(newItem)
 			}
 
 			setLoading(false)
@@ -55,15 +68,19 @@ export function CreateNewItem() {
 		}
 	}
 
+	useEffect(() => {
+		setTitle('')
+		setPrice('')
+		setAllergies([])
+	}, [])
+
 	if (loading)
 		return (
-			<div>
+			<div className="flex h-screen w-full items-center justify-center">
 				<div className="text-2xl font-bold">loading...</div>
 				<div className="bg-white opacity-10" />
 			</div>
 		)
-
-	if (error) return <div>{`${error.message}`}</div>
 
 	return (
 		<div className="flex h-screen w-full items-center justify-center">
@@ -104,7 +121,6 @@ export function CreateNewItem() {
 							<Input id={1} />
 						</div>
 					</div>
-					{/* Top container end */}
 
 					{/* Allergies Input */}
 					<div className="ml-5 mt-8 flex h-auto w-full justify-start">

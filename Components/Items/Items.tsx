@@ -30,18 +30,29 @@ export function Items() {
 	if (error) <p>Error: {error.message}</p>
 
 	return (
-		<div className="rounded-lg bg-white px-28 py-10">
-			<Link href={'/admin/create'}>
-				<button className="mb-12 cursor-pointer rounded bg-[#FF7474] px-8 py-2 text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D]">
+		<div className="no-scrollbar h-full w-full overflow-y-scroll px-20 pt-20 ">
+			<Link href={'/admin/create'} className="h-fit ">
+				<button
+					disabled={itemsList.items.length === 0}
+					className="mb-3 cursor-pointer rounded bg-[#FF7474] px-8 py-2 text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D] disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
+				>
 					Add
 				</button>
 			</Link>
 
-			<div className="grid grid-cols-3 gap-5">
-				{itemsList?.items?.map((data: ItemsType, id: number) => (
-					<Item key={id} item={data} />
-				))}
-			</div>
+			{itemsList.items.length !== 0 ? (
+				<div className="py-5">
+					<div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+						{itemsList?.items?.map((data: ItemsType, id: number) => (
+							<Item key={id} item={data} />
+						))}
+					</div>
+				</div>
+			) : (
+				<div className="m-1 flex h-[350px] w-full items-center justify-center rounded-2xl py-5">
+					<div className="text-bold  text-2xl text-gray-600">No data...</div>
+				</div>
+			)}
 		</div>
 	)
 }

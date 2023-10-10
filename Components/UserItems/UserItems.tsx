@@ -10,7 +10,7 @@ import { useItemsStore } from '@/store/ItemsStore'
 import { useModalStore } from '@/store/ModalStore'
 
 import { UserItem } from './UserItem/UserItem'
-import Header from '../Header'
+import { Header } from '../Header/Header'
 
 export function UserItems() {
 	const { loading, error, data } = useQuery(GET_ALL_ITEMS_USER, {
