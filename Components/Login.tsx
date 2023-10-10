@@ -13,12 +13,13 @@ export function Login() {
 		e.preventDefault()
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
-				const user = userCredential.user
+				const admin = userCredential.user
 				window.location.replace('/admin/dashboard')
-				console.log('user>>>', user)
+				console.log('user>>>', admin)
 			})
 			.catch((err) => {
-				if (err) console.log('There is something wrong with Email or Password.')
+				if (err)
+					console.log('There is something wrong with Email or Password.', err)
 			})
 	}
 
@@ -65,8 +66,11 @@ export function Login() {
 							Login
 						</button>
 					</div>
-					<div className="text-center underline  hover:opacity-50">
+					{/* <div className="text-center underline  hover:opacity-50">
 						<a href="/">Forget the password?</a>
+					</div> */}
+					<div className="text-center underline  hover:opacity-50">
+						<a href="/user">Ready to order for customer??</a>
 					</div>
 				</form>
 			</div>

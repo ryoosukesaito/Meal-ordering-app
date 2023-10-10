@@ -1,18 +1,17 @@
 'use client'
 
-import { useMutation } from '@apollo/client'
 import { Dialog, Transition } from '@headlessui/react'
 import {
 	ArrowDownTrayIcon,
 	PlusCircleIcon,
 	XMarkIcon
 } from '@heroicons/react/24/outline'
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import Image from 'next/image'
 import { CldImage } from 'next-cloudinary'
-import { Fragment, useRef } from 'react'
+import { Fragment, useRef, useState } from 'react'
 
-import { client } from '@/graphql/apollo-client'
-import { DELETE_ITEM, UPDATE_ITEM } from '@/graphql/queries'
+import { db } from '@/firebase'
 import { useItemsStore } from '@/store/ItemsStore'
 import { useModalStore } from '@/store/ModalStore'
 
@@ -54,8 +53,7 @@ export function Modal() {
 		state.closeModal
 	])
 
-	const [updateItem, { loading, error }] = useMutation(UPDATE_ITEM, { client })
-	const [deleteItem] = useMutation(DELETE_ITEM, { client })
+	const [loading, setLoading] = useState(false)
 	const imagePickerRef = useRef<HTMLInputElement>(null)
 
 	const handleAllergyInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +80,7 @@ export function Modal() {
 		setImage('')
 	}
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleUpdate = async (e: React.FormEvent) => {
 		e.preventDefault()
 
 		try {
@@ -91,14 +89,13 @@ export function Modal() {
 				const URL = await setImageFile(file)
 				imageURL = URL
 			}
-			await updateItem({
-				variables: {
-					id: item.id,
-					title: title,
-					price: price,
-					allergies: allergies,
-					image: imageURL
-				}
+
+			// update the item
+			await updateDoc(doc(db, 'items', item.id), {
+				title: title,
+				price: price,
+				allergies: allergies,
+				image: imageURL
 			})
 
 			handleClose()
@@ -107,13 +104,13 @@ export function Modal() {
 		}
 	}
 
-	const handleDelete = async (imageId: string) => {
+	const handleDelete = async () => {
 		try {
 			await deleteImage(item.image)
 
-			const deleteSuccess = await deleteItem({
-				variables: { id: imageId }
-			})
+			// delete the item
+
+			const response = await deleteDoc(doc(db, 'items', item.id))
 
 			window.location.reload()
 			handleClose()
@@ -130,7 +127,7 @@ export function Modal() {
 			<Dialog
 				as="form"
 				className="relative z-10"
-				onSubmit={handleSubmit}
+				onSubmit={handleUpdate}
 				onClose={handleClose}
 			>
 				`
@@ -166,7 +163,7 @@ export function Modal() {
 										type="button"
 										className="mb-5 cursor-pointer rounded-lg bg-[#FF7474] px-6 py-2 text-sm text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D] focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 										onClick={() => {
-											handleDelete(item.id)
+											handleDelete()
 										}}
 									>
 										DELETE
@@ -250,7 +247,7 @@ export function Modal() {
 													<input
 														type="text"
 														className="my-3 w-full rounded-md border border-gray-300 px-4 py-2 outline-none"
-														placeholder={price}
+														placeholder={item.price}
 														value={price}
 														onChange={(e) => setPrice(e.target.value)}
 													/>

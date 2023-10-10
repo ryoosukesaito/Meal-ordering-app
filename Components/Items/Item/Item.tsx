@@ -47,11 +47,11 @@ export function Item({ item }: Props) {
 					<div className="text-md px-3">$ {item.price}</div>
 				</div>
 				<div className="flex flex-col justify-between">
-					<div className="flex flex-row ">
+					<div className="flex flex-row flex-wrap ">
 						{item.allergies.map((allergy: string, idx: number) => (
 							<div
 								key={idx}
-								className="mx-1 flex items-center justify-center rounded-full bg-[#FF7474] px-5 py-1 text-sm text-white"
+								className="m-1 flex items-center justify-center rounded-full bg-[#FF7474] px-5 py-1 text-sm text-white"
 							>
 								{allergy}
 							</div>
