@@ -3,8 +3,8 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { CldImage } from 'next-cloudinary'
 
-import { useItemsStore } from '@/app/admin/store/ItemsStore'
-import { useModalStore } from '@/app/admin/store/ModalStore'
+import { useItemsStore } from '@/store/ItemsStore'
+import { useModalStore } from '@/store/ModalStore'
 
 type Props = {
 	item: ItemsType

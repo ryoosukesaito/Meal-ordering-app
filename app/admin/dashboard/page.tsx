@@ -1,5 +1,5 @@
-import { Header } from '@/app/Components/Header/Header'
-import { Items } from '@/app/Components/ItemsList/ItemsList'
+import { Header } from '@/Components/Header/Header'
+import { Items } from '@/Components/ItemsList/ItemsList'
 
 function page() {
 	return (

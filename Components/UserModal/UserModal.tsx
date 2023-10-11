@@ -6,11 +6,11 @@ import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import { CldImage } from 'next-cloudinary'
 import { Fragment, useEffect, useState } from 'react'
 
-import { useCartStore } from '@/app/admin/store/CartStore'
-import { useItemsStore } from '@/app/admin/store/ItemsStore'
-import { useModalStore } from '@/app/admin/store/ModalStore'
-import { client } from '@/app/graphql/apollo-client'
-import { GET_ALLERGIES_BY_ID_USER } from '@/app/graphql/queries'
+import { client } from '@/graphql/apollo-client'
+import { GET_ALLERGIES_BY_ID_USER } from '@/graphql/queries'
+import { useCartStore } from '@/store/CartStore'
+import { useItemsStore } from '@/store/ItemsStore'
+import { useModalStore } from '@/store/ModalStore'
 
 export function UserModal() {
 	const [item] = useItemsStore((state) => [state.item])

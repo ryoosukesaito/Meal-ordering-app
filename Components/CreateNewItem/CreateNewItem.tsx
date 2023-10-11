@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '@/firebase'
-import { useItemsStore } from '@/app/admin/store/ItemsStore'
+import { useItemsStore } from '@/store/ItemsStore'
 
 import { AllergiesInput } from './AllergiesInput/AllergiesInput'
 import { ImageInput } from './ImageInput/ImageInput'

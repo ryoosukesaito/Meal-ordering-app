@@ -4,9 +4,9 @@ import { useQuery } from '@apollo/client'
 import Link from 'next/link'
 import { useEffect } from 'react'
 
-import { client } from '@/app/graphql/apollo-client'
-import { GET_ALL_ITEMS } from '@/app/graphql/queries'
-import { useItemsStore } from '@/app/admin/store/ItemsStore'
+import { client } from '@/graphql/apollo-client'
+import { GET_ALL_ITEMS } from '@/graphql/queries'
+import { useItemsStore } from '@/store/ItemsStore'
 
 import { Item } from './Item/Item'
 export function Items() {
@@ -47,7 +47,7 @@ export function Items() {
 
 			{itemsList.items.length !== 0 ? (
 				<div className="rounded-xl bg-white px-16 py-10 shadow-lg">
-					<div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+					<div className="xl:grid-cols-4 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
 						{itemsList?.items?.map((data: ItemsType, id: number) => (
 							<Item key={id} item={data} />
 						))}

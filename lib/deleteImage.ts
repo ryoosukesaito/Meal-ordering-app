@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-import { CLD } from '@/app/cloudinary/cloudinaryConfig'
+import { CLD } from '@/cloudinary/cloudinaryConfig'
 
 const generateSHA1 = (data: string) => {
 	const hash = crypto.createHash('sha1')
