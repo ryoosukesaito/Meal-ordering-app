@@ -23,20 +23,22 @@ export function UserItem({ item }: Props) {
 	return (
 		<>
 			<button onClick={handleModalOpen}>
-				<div className="h-full rounded-lg border border-zinc-400  shadow-lg hover:cursor-pointer">
-					<section className="h-52">
+				<div className="h-full rounded-lg shadow-lg hover:cursor-pointer ">
+					<section className="h-64  rounded-t-md">
 						<CldImage
-							className="h-full w-full rounded-md object-cover"
+							className="h-full w-full  rounded-t-md object-cover "
 							alt="item-image"
 							src={item.image}
 							width={300}
 							height={300}
 						/>
 					</section>
-					<section className="flex flex-col justify-between p-5 ">
-						<div>
+					<section className="flex h-28 flex-col justify-between p-5 ">
+						<div className="flex h-full flex-col justify-between">
 							<div className="text-md px-3">{item.title}</div>
-							<div className="text-md px-3">$ {item.price}</div>
+							<div className="text-md px-3 text-xl font-bold text-gray-600">
+								$ {item.price}
+							</div>
 						</div>
 					</section>
 				</div>

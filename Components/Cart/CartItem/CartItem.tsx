@@ -41,44 +41,46 @@ export const CartItem: React.FC<ItemData> = ({ item, idx }) => {
 	}, [])
 
 	return (
-		<>
+		<div className="my-2 inline-flex w-full">
 			{item && (
-				<div className="flex items-center justify-between">
-					<div className=" h-32 w-full ">
+				<div className="flex w-full flex-row rounded-2xl bg-white shadow-lg">
+					<div className="h-32 w-28">
 						<CldImage
 							alt="item-image"
-							className="h-full w-full rounded-2xl object-cover"
+							className="h-full w-full rounded-l-2xl object-cover"
 							src={item.image}
 							width={300}
 							height={300}
 						/>
 					</div>
 					<div className="flex-1">
-						<p className="font-semibold">{`${item.title}`}</p>
-						<p className="text-sm text-gray-500">Price: $ {`${item.price}`}</p>
-					</div>
-					<div className="flex items-center space-x-2">
-						<button
-							value="minus"
-							onClick={handleCounter}
-							className="rounded-full bg-blue-500 p-1  text-white"
-						>
-							<MinusCircleIcon className="h-6 w-6" />
-						</button>
-						<span className="mx-3">{`${itemCount}`}</span>
-						<button
-							value="plus"
-							onClick={handleCounter}
-							className="rounded-full bg-blue-500 p-1  text-white"
-						>
-							<PlusCircleIcon className="h-6 w-6" />
-						</button>
+						<div className="p-3">
+							<p className="text-md font-semibold">{`${item.title}`}</p>
+							<p className="text-sm text-gray-500">$ {`${item.price}`}</p>
+						</div>
+						<div className="mx-3 flex items-center space-x-2">
+							<button
+								value="minus"
+								onClick={handleCounter}
+								className="rounded-2xl p-1 text-blue-500"
+							>
+								<MinusCircleIcon className="h-6 w-6" />
+							</button>
+							<span className="">{`${itemCount}`}</span>
+							<button
+								value="plus"
+								onClick={handleCounter}
+								className="rounded-full p-1 text-blue-500"
+							>
+								<PlusCircleIcon className="h-6 w-6" />
+							</button>
+						</div>
 					</div>
 				</div>
 			)}
-			<button onClick={deleteItem}>
+			<button onClick={deleteItem} className="ml-3">
 				<XCircleIcon className="h-6 w-6 text-red-700" />
 			</button>
-		</>
+		</div>
 	)
 }

@@ -30,9 +30,11 @@ export function UserModal() {
 
 	const [count, setCount] = useState(0)
 	const [allergies, setAllergies] = useState([])
+	console.log('allergies>>> ', allergies)
 
 	const setAllergiesByID = () => {
 		if (!data) return
+		console.log(data.getAllergiesById.allergies)
 		setAllergies(data.getAllergiesById.allergies)
 	}
 
@@ -68,7 +70,7 @@ export function UserModal() {
 
 	useEffect(() => {
 		setAllergiesByID()
-	}, [])
+	}, [data])
 
 	return (
 		<Transition appear show={isOpenUserModal} as={Fragment}>
@@ -101,7 +103,7 @@ export function UserModal() {
 							leaveFrom="opacity-100"
 							leaveTo="opacity-0"
 						>
-							<Dialog.Panel className="w-fit transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+							<Dialog.Panel className="w-1/3 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 								{loading ? (
 									<div>
 										Loading...
@@ -110,23 +112,24 @@ export function UserModal() {
 								) : (
 									<>
 										<div className="flex flex-col items-center">
-											<div className="flex flex-col items-center justify-center">
-												{/* Image size */}
-												<div className=" h-72 w-full ">
-													<CldImage
-														alt="item-image"
-														className="h-full w-full rounded-2xl object-cover"
-														src={item.image}
-														width={600}
-														height={600}
-													/>
-												</div>
-												<div className="flex items-center justify-between pb-2 text-xl font-bold leading-6 text-gray-900">{`${item.title}`}</div>
-												<div>${`${item.price}`}</div>
+											{/* Image size */}
+											<div className="h-80 w-96">
+												<CldImage
+													alt="item-image"
+													className="h-full w-full rounded-2xl object-cover"
+													src={item.image}
+													width={600}
+													height={600}
+												/>
+											</div>
+
+											<div className="mt-5 flex w-fit flex-col items-center px-5">
+												<p className="text-xl font-bold leading-6 text-gray-900">{`${item.title}`}</p>
+												<p className="text-lg">${`${item.price}`}</p>
 											</div>
 
 											<section className="m-5 flex w-full flex-col ">
-												<div className="my-4 flex w-full max-w-lg flex-row flex-wrap justify-start">
+												<div className="my-4 flex w-full max-w-lg flex-row flex-wrap justify-start px-4">
 													{allergies?.map((allergy: string, idx: number) => (
 														<div
 															key={idx}
@@ -137,7 +140,7 @@ export function UserModal() {
 													))}
 												</div>
 											</section>
-											<div className="flex max-w-sm flex-row">
+											<div className="my-2 flex max-w-sm flex-row">
 												<button
 													type="button"
 													value="minus"

@@ -1,7 +1,10 @@
 'use client'
 
-import { ChevronLeftIcon } from '@heroicons/react/24/outline'
-import { useMemo, useState } from 'react'
+import {
+	ChevronLeftIcon,
+	ClipboardDocumentIcon
+} from '@heroicons/react/24/outline'
+import { useMemo } from 'react'
 
 import { useCartStore } from '@/store/CartStore'
 import { useModalStore } from '@/store/ModalStore'
@@ -9,17 +12,19 @@ import { useModalStore } from '@/store/ModalStore'
 import { CartItem } from './CartItem/CartItem'
 
 export const Cart = () => {
-	const [cartItems, setCartItems] = useCartStore((state) => [
-		state.cartItems,
-		state.setCartItems
-	])
+	const [cartItems, setCartItems, price, quantity, setPrice, setQuantity] =
+		useCartStore((state) => [
+			state.cartItems,
+			state.setCartItems,
+			state.price,
+			state.quantity,
+			state.setPrice,
+			state.setQuantity
+		])
 	const [cartVisible, closeCart] = useModalStore((state) => [
 		state.cartVisible,
 		state.closeCart
 	])
-
-	const [price, setPrice] = useState('')
-	const [quantity, setQuantity] = useState(0)
 
 	const calculateTotalFunc = useMemo(() => {
 		if (cartItems) {
@@ -43,30 +48,34 @@ export const Cart = () => {
 	return (
 		<>
 			{/* background layer */}
-			<div className="fixed inset-0 z-10 w-full">
+			<div className="fixed inset-0 z-40 w-full">
 				{/* cart section */}
 				<div
-					className={`absolute h-full min-h-screen w-1/3 bg-white px-8 py-5 shadow-2xl duration-500 ease-in-out ${
+					className={`absolute h-full min-h-screen w-1/3 bg-[#F1EEEE] px-8 py-5 shadow-2xl duration-500 ease-in-out ${
 						!cartVisible ? '-right-full' : 'right-0'
 					}`}
 				>
-					<div className="flex h-full flex-col justify-between">
+					<div className="flex h-full flex-col">
 						<div>
 							<button onClick={closeCart} className="my-3">
 								<ChevronLeftIcon className="h-6 w-6" />
 							</button>
-
-							<h2 className="mb-5 text-2xl font-semibold">Your Cart</h2>
-
-							{/* cart items */}
-							<div className="no-scrollbar mb-1 max-h-[500px] overflow-y-scroll">
+						</div>
+						{cartItems.items.length === 0 ? (
+							<div className="flex h-full w-full flex-col items-center justify-center ">
+								<ClipboardDocumentIcon className="h-20 w-20 text-gray-400" />
+								<p className="text-lg text-gray-400">No order yet...</p>
+							</div>
+						) : (
+							// {/* cart items */}
+							<div className="no-scrollbar mb-1 h-full max-h-[550px]  overflow-y-scroll">
 								{cartItems?.items.map((item: CartItem, idx: number) => (
 									<div key={idx}>
 										<CartItem item={item} idx={idx} />
 									</div>
 								))}
 							</div>
-						</div>
+						)}
 						<div className="border-t-2 border-black">
 							<div className="my-2 flex flex-row items-center justify-center">
 								<p className="text-lg font-bold">Total</p>
@@ -91,7 +100,7 @@ export const Cart = () => {
 					</div>
 				</div>
 			</div>
-			<div className="fixed inset-0 z-0 bg-white bg-opacity-40 " />
+			<div className="fixed inset-0 z-30 bg-white bg-opacity-40 " />
 		</>
 	)
 }
