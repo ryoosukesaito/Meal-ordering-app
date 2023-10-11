@@ -1,4 +1,4 @@
-import { Login } from '@/Components/Login'
+import { Login } from '@/app/Components/Login'
 
 export function page() {
 	return (

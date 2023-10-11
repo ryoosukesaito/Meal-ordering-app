@@ -5,8 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo } from 'react'
 
-import { useCartStore } from '@/store/CartStore'
-import { useModalStore } from '@/store/ModalStore'
+import { useCartStore } from '@/app/admin/store/CartStore'
+import { useModalStore } from '@/app/admin/store/ModalStore'
 
 export const UserHeader = () => {
 	const [openCart] = useModalStore((state) => [state.openCart])
