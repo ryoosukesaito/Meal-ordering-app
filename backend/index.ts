@@ -31,7 +31,7 @@ const resolvers = {
 			const itemsSnapshot = await AdminDB.collection('items').get()
 			return itemsSnapshot.docs.map((doc) => doc.data())
 		},
-		getAllergiesById: async (_, { id }) => {
+		getAllergiesById: async (_: any, { id }: any) => {
 			const itemSnapshot = await AdminDB.collection('items').doc(id).get()
 			const itemData = itemSnapshot.data()
 			return itemData

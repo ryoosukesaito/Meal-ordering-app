@@ -1,7 +1,7 @@
 import { UserHeader } from '@/Components/UserHeader.tsx/UserHeader'
 import { UserItems } from '@/Components/UserItems/UserItems'
 
-export function page() {
+function page() {
 	return (
 		<div>
 			<UserHeader />
