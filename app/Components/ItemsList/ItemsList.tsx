@@ -4,9 +4,9 @@ import { useQuery } from '@apollo/client'
 import Link from 'next/link'
 import { useEffect } from 'react'
 
-import { client } from '@/graphql/apollo-client'
-import { GET_ALL_ITEMS } from '@/graphql/queries'
-import { useItemsStore } from '@/store/ItemsStore'
+import { client } from '@/app/graphql/apollo-client'
+import { GET_ALL_ITEMS } from '@/app/graphql/queries'
+import { useItemsStore } from '@/app/admin/store/ItemsStore'
 
 import { Item } from './Item/Item'
 export function Items() {

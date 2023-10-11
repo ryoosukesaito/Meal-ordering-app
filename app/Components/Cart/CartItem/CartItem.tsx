@@ -6,7 +6,7 @@ import {
 import { CldImage } from 'next-cloudinary'
 import React, { useCallback, useMemo, useState } from 'react'
 
-import { useCartStore } from '@/store/CartStore'
+import { useCartStore } from '@/app/admin/store/CartStore'
 
 interface ItemData {
 	item: CartItem

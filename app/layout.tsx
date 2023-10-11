@@ -1,5 +1,5 @@
-import { Modal } from '@/Components/Modal'
-import { UserModal } from '@/Components/UserModal/UserModal'
+import { Modal } from '@/app/Components/Modal'
+import { UserModal } from '@/app/Components/UserModal/UserModal'
 
 import './globals.css'
 

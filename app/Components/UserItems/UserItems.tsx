@@ -3,11 +3,11 @@
 import { useQuery } from '@apollo/client'
 import { useEffect } from 'react'
 
-import { Cart } from '@/Components/Cart/Cart'
-import { client } from '@/graphql/apollo-client'
-import { GET_ALL_ITEMS_USER } from '@/graphql/queries'
-import { useItemsStore } from '@/store/ItemsStore'
-import { useModalStore } from '@/store/ModalStore'
+import { Cart } from '@/app/Components/Cart/Cart'
+import { client } from '@/app/graphql/apollo-client'
+import { GET_ALL_ITEMS_USER } from '@/app/graphql/queries'
+import { useItemsStore } from '@/app/admin/store/ItemsStore'
+import { useModalStore } from '@/app/admin/store/ModalStore'
 
 import { UserItem } from './UserItem/UserItem'
 
