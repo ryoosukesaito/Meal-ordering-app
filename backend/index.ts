@@ -48,6 +48,8 @@ startApolloServer()
 
 const PORT = process.env.PORT || 4000
 
+app.use('/', (_, res) => res.json({ response: 'Health Check' }).status(200))
+
 app.listen(PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}/graphql`)
 })
