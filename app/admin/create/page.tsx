@@ -1,6 +1,6 @@
-import { CreateNewItem } from '@/app/Components/CreateNewItem/CreateNewItem'
+import { CreateNewItem } from '@/Components/CreateNewItem/CreateNewItem'
 
-const page = () => {
+function page() {
 	return (
 		<div>
 			<CreateNewItem />

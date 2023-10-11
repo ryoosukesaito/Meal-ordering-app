@@ -1,9 +1,10 @@
-import { Login } from '@/app/Components/Login'
+import { Login } from '@/Components/Login'
 
-export function page() {
+function page() {
 	return (
 		<div>
 			<Login />
 		</div>
 	)
 }
+export default page

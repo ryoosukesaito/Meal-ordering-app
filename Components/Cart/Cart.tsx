@@ -6,8 +6,8 @@ import {
 } from '@heroicons/react/24/outline'
 import { useMemo } from 'react'
 
-import { useCartStore } from '@/app/admin/store/CartStore'
-import { useModalStore } from '@/app/admin/store/ModalStore'
+import { useCartStore } from '@/store/CartStore'
+import { useModalStore } from '@/store/ModalStore'
 
 import { CartItem } from './CartItem/CartItem'
 
