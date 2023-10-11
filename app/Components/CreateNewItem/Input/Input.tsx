@@ -1,4 +1,4 @@
-import { useItemsStore } from '@/store/ItemsStore'
+import { useItemsStore } from '@/app/admin/store/ItemsStore'
 
 interface InputValue {
 	id: number

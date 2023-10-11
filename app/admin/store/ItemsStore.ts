@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import uploadImage from '@/lib/uploadImage'
+import uploadImage from '@/app/lib/uploadImage'
 
 interface ItemsState {
 	itemsList: {

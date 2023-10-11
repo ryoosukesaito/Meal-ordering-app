@@ -12,10 +12,10 @@ import { CldImage } from 'next-cloudinary'
 import { Fragment, useRef, useState } from 'react'
 
 import { db } from '@/firebase'
-import { useItemsStore } from '@/store/ItemsStore'
-import { useModalStore } from '@/store/ModalStore'
+import { useItemsStore } from '@/app/admin/store/ItemsStore'
+import { useModalStore } from '@/app/admin/store/ModalStore'
 
-import deleteImage from '@/lib/deleteImage'
+import deleteImage from '@/app/lib/deleteImage'
 
 export function Modal() {
 	const [

@@ -6,11 +6,11 @@ import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import { CldImage } from 'next-cloudinary'
 import { Fragment, useEffect, useState } from 'react'
 
-import { client } from '@/graphql/apollo-client'
-import { GET_ALLERGIES_BY_ID_USER } from '@/graphql/queries'
-import { useCartStore } from '@/store/CartStore'
-import { useItemsStore } from '@/store/ItemsStore'
-import { useModalStore } from '@/store/ModalStore'
+import { useCartStore } from '@/app/admin/store/CartStore'
+import { useItemsStore } from '@/app/admin/store/ItemsStore'
+import { useModalStore } from '@/app/admin/store/ModalStore'
+import { client } from '@/app/graphql/apollo-client'
+import { GET_ALLERGIES_BY_ID_USER } from '@/app/graphql/queries'
 
 export function UserModal() {
 	const [item] = useItemsStore((state) => [state.item])
@@ -101,7 +101,7 @@ export function UserModal() {
 							leaveFrom="opacity-100"
 							leaveTo="opacity-0"
 						>
-							<Dialog.Panel className="w-3/4 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all sm:w-1/3">
+							<Dialog.Panel className="w-3/5 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all md:w-1/3">
 								{loading ? (
 									<div>
 										Loading...
@@ -111,7 +111,7 @@ export function UserModal() {
 									<>
 										<div className="flex flex-col items-center">
 											{/* Image size */}
-											<div className="h-32 w-full md:h-40 lg:h-80 lg:w-96 ">
+											<div className="h-44 w-full md:h-52 lg:h-80 lg:w-96 ">
 												<CldImage
 													alt="item-image"
 													className="h-full w-full rounded-2xl object-cover"

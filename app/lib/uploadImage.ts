@@ -1,4 +1,4 @@
-import { CLD } from '@/cloudinary/cloudinaryConfig'
+import { CLD } from '@/app/cloudinary/cloudinaryConfig'
 
 const uploadImage = async (file: File) => {
 	const formData = new FormData()

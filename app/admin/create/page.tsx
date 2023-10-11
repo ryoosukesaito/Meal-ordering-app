@@ -1,4 +1,4 @@
-import { CreateNewItem } from '@/Components/CreateNewItem/CreateNewItem'
+import { CreateNewItem } from '@/app/Components/CreateNewItem/CreateNewItem'
 
 const page = () => {
 	return (
