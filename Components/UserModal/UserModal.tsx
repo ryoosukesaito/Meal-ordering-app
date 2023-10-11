@@ -101,7 +101,7 @@ export function UserModal() {
 							leaveFrom="opacity-100"
 							leaveTo="opacity-0"
 						>
-							<Dialog.Panel className="w-1/3 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+							<Dialog.Panel className="w-3/4 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all sm:w-1/3">
 								{loading ? (
 									<div>
 										Loading...
@@ -111,7 +111,7 @@ export function UserModal() {
 									<>
 										<div className="flex flex-col items-center">
 											{/* Image size */}
-											<div className="h-80 w-96">
+											<div className="h-32 w-full md:h-40 lg:h-80 lg:w-96 ">
 												<CldImage
 													alt="item-image"
 													className="h-full w-full rounded-2xl object-cover"
@@ -121,17 +121,17 @@ export function UserModal() {
 												/>
 											</div>
 
-											<div className="mt-5 flex w-fit flex-col items-center px-5">
+											<div className="my-3 flex w-fit flex-col items-center px-5 md:mt-5">
 												<p className="text-xl font-bold leading-6 text-gray-900">{`${item.title}`}</p>
 												<p className="text-lg">${`${item.price}`}</p>
 											</div>
 
-											<section className="m-5 flex w-full flex-col ">
+											<section className="flex w-full flex-col ">
 												<div className="my-4 flex w-full max-w-lg flex-row flex-wrap justify-start px-4">
 													{allergies?.map((allergy: string, idx: number) => (
 														<div
 															key={idx}
-															className="mr-2 flex w-fit flex-row items-center rounded-full border border-[#FF7474] bg-white px-4 py-1 text-[#FF7474]"
+															className="mr-2 flex w-fit flex-row items-center rounded-full border border-[#FF7474] bg-white px-4 py-1 text-sm text-[#FF7474]"
 														>
 															{allergy}
 														</div>
