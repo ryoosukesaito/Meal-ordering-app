@@ -47,7 +47,7 @@ export function Items() {
 
 			{itemsList.items.length !== 0 ? (
 				<div className="rounded-xl bg-white px-16 py-10 shadow-lg">
-					<div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+					<div className="xl:grid-cols-4 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
 						{itemsList?.items?.map((data: ItemsType, id: number) => (
 							<Item key={id} item={data} />
 						))}
