@@ -132,3 +132,4 @@ dist
 fb-adminsdk.json
 package-lock.json
 .vercel
+fb-adminsdk.cts
