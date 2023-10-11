@@ -36,9 +36,9 @@ export function UserItems() {
 	return (
 		<>
 			{cartVisible && <Cart />}
-			<div className="no-scrollbar h-full w-full overflow-y-scroll px-20 pt-20">
-				<div className="rounded-xl bg-white px-16 py-10 shadow-lg">
-					<div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+			<div className="no-scrollbar h-full w-full overflow-y-scroll pt-20 md:px-20">
+				<div className="rounded-xl bg-white px-5 py-10 shadow-lg md:px-16">
+					<div className="grid grid-cols-2 gap-5  md:grid-cols-3 lg:grid-cols-4 ">
 						{itemsList?.items?.map((data: ItemsType, id: number) => (
 							<UserItem key={id} item={data} />
 						))}

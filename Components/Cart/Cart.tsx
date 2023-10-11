@@ -51,7 +51,7 @@ export const Cart = () => {
 			<div className="fixed inset-0 z-40 w-full">
 				{/* cart section */}
 				<div
-					className={`absolute h-full min-h-screen w-1/3 bg-[#F1EEEE] px-8 py-5 shadow-2xl duration-500 ease-in-out ${
+					className={`absolute h-full min-h-screen w-2/3 bg-[#F1EEEE] px-8 py-5 shadow-2xl duration-500 ease-in-out md:w-1/3 ${
 						!cartVisible ? '-right-full' : 'right-0'
 					}`}
 				>

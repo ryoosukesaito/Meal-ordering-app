@@ -24,7 +24,7 @@ export function UserItem({ item }: Props) {
 		<>
 			<button onClick={handleModalOpen}>
 				<div className="h-full rounded-lg shadow-lg hover:cursor-pointer ">
-					<section className="h-64  rounded-t-md">
+					<section className="h-28 rounded-t-md sm:h-52  lg:h-64">
 						<CldImage
 							className="h-full w-full  rounded-t-md object-cover "
 							alt="item-image"
@@ -33,10 +33,12 @@ export function UserItem({ item }: Props) {
 							height={300}
 						/>
 					</section>
-					<section className="flex h-28 flex-col justify-between p-5 ">
+					<section className="flex h-28 flex-col justify-between py-4 lg:p-5 ">
 						<div className="flex h-full flex-col justify-between">
-							<div className="text-md px-3">{item.title}</div>
-							<div className="text-md px-3 text-xl font-bold text-gray-600">
+							<div className="md:text-md px-3 text-xs lg:text-lg">
+								{item.title}
+							</div>
+							<div className="sm:text-md px-3 text-sm font-bold text-gray-600 lg:text-xl">
 								$ {item.price}
 							</div>
 						</div>
