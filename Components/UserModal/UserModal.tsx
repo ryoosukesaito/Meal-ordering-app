@@ -30,11 +30,9 @@ export function UserModal() {
 
 	const [count, setCount] = useState(0)
 	const [allergies, setAllergies] = useState([])
-	console.log('allergies>>> ', allergies)
 
 	const setAllergiesByID = () => {
 		if (!data) return
-		console.log(data.getAllergiesById.allergies)
 		setAllergies(data.getAllergiesById.allergies)
 	}
 

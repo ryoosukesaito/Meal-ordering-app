@@ -11,8 +11,9 @@ type Props = {
 }
 
 export function Item({ item }: Props) {
-	const [setTitle, setPrice, setImage, setAllergies, setItemAsProps] =
+	const [title, setTitle, setPrice, setImage, setAllergies, setItemAsProps] =
 		useItemsStore((state) => [
+			state.title,
 			state.setTitle,
 			state.setPrice,
 			state.setImage,
@@ -41,6 +42,7 @@ export function Item({ item }: Props) {
 					height={300}
 				/>
 			</section>
+
 			<section className="flex flex-col justify-between p-5 ">
 				<div>
 					<div className="text-md px-3">{item.title}</div>

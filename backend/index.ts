@@ -4,7 +4,6 @@ import express from 'express'
 
 import { AdminDB } from './firebaseBackend'
 
-import 'dotenv/config'
 dotenv.config()
 const app = express()
 

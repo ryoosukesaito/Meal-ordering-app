@@ -78,6 +78,7 @@ export function Modal() {
 	const handleClose = () => {
 		closeModal()
 		setImage('')
+		window.location.reload()
 	}
 
 	const handleUpdate = async (e: React.FormEvent) => {

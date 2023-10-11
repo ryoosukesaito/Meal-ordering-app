@@ -26,8 +26,13 @@ export function Items() {
 		getItem()
 	}, [data])
 
-	if (loading) <p>Loading...</p>
-	if (error) <p>Error: {error.message}</p>
+	if (loading)
+		return (
+			<div className="no-scrollbar h-full w-full overflow-y-scroll px-20 pt-20 ">
+				<p className="text-2xl font-bold text-gray-400">Loading...</p>
+			</div>
+		)
+	if (error) return <p>Error: {error.message}</p>
 
 	return (
 		<div className="no-scrollbar h-full w-full overflow-y-scroll px-20 pt-20 ">
