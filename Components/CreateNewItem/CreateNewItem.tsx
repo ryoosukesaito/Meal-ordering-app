@@ -90,24 +90,22 @@ export function CreateNewItem() {
 					className="mb-3 flex h-full w-full flex-col items-center py-2"
 				>
 					{/* top container */}
-					<div className="grid h-fit w-full grid-flow-row grid-cols-2 gap-5">
-						<div className="flex flex-col justify-start">
-							<div className="flex h-full w-full items-center justify-center rounded-xl bg-slate-300">
-								{file ? (
-									<Image
-										alt="item-image"
-										className="cursor-not-allowed hover:grayscale"
-										width={600}
-										height={600}
-										src={URL.createObjectURL(file)}
-										onClick={() => {
-											setFile(null)
-										}}
-									/>
-								) : (
-									<div className="text-gray-600">No image..</div>
-								)}
-							</div>
+					<div className="grid h-80 w-full grid-flow-row grid-cols-2 gap-5">
+						<div className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-slate-300">
+							{file ? (
+								<Image
+									alt="item-image"
+									className="h-auto w-full cursor-not-allowed hover:grayscale"
+									width={600}
+									height={600}
+									src={URL.createObjectURL(file)}
+									onClick={() => {
+										setFile(null)
+									}}
+								/>
+							) : (
+								<div className="text-gray-600">No image..</div>
+							)}
 						</div>
 
 						<div className="flex flex-col pl-6">
