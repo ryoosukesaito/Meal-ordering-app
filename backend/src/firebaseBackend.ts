@@ -1,6 +1,6 @@
 import admin from 'firebase-admin'
 
-import * as serviceAccount from './fb-adminsdk.cjs'
+import * as serviceAccount from '../fb-adminsdk.cjs'
 // const serviceAccount = JSON.parse(fs.readFileSync('./fb-adminsdk.json', 'utf8'))
 
 admin.initializeApp({
