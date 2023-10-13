@@ -15,7 +15,6 @@ export function Login() {
 			.then((userCredential) => {
 				const admin = userCredential.user
 				window.location.replace('/admin/dashboard')
-				console.log('user>>>', admin)
 			})
 			.catch((err) => {
 				if (err)
