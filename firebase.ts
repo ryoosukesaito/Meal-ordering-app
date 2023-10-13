@@ -4,12 +4,12 @@ import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 const firebaseApp = initializeApp({
-	apiKey: 'AIzaSyCW02MkjREQyIcH6AmtprkaYtkucw_vP3k',
-	authDomain: 'ordering-meal-app.firebaseapp.com',
-	projectId: 'ordering-meal-app',
-	storageBucket: 'ordering-meal-app.appspot.com',
-	messagingSenderId: '380131197215',
-	appId: '1:380131197215:web:df9cdd15d2e628050df02a'
+	apiKey: process.env.NEXT_PUBLIC_FB_APP_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FB_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FB_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FB_APP_ID
 })
 
 const auth = getAuth(firebaseApp)

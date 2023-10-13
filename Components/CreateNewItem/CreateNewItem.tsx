@@ -1,6 +1,6 @@
 'use client'
 
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -54,10 +54,6 @@ export function CreateNewItem() {
 					allergies: allergies,
 					image: imageURL
 				})
-
-				const newSetItemSnapshot = await getDoc(doc(db, 'items', id))
-				const newItem = newSetItemSnapshot.data()
-				console.log(newItem)
 			}
 
 			setLoading(false)
