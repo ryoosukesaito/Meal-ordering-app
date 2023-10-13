@@ -3,14 +3,13 @@
 
 ## Description
 This app is ordering meals app for restaurant. It will help for servers to take orders. Restaurants owner is able to manage menu items and details.
-
+If you would like to manage menus login from login page. If it's time to serve a customer, please hit the link of "Ready to order for customer??". 
 ## Motivated
 The purpose of this app is to be familiar with GraphQl and Zustand.
 
 ## What I used 
 ### Frontend ([package.json](https://github.com/ryoosukesaito/Meal-ordering-app/blob/main/package.json))
-- image uploading
-  - [Next cloudinary](https://www.npmjs.com/package/next-cloudinary)([How to use with React](https://www.mridul.tech/blogs/how-to-upload-images-to-cloudinary-with-react-js))
+- [Next cloudinary](https://www.npmjs.com/package/next-cloudinary)([How to use with React](https://www.mridul.tech/blogs/how-to-upload-images-to-cloudinary-with-react-js))
 - [firebase](https://firebase.google.com/)
 - [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
 
@@ -20,7 +19,17 @@ The purpose of this app is to be familiar with GraphQl and Zustand.
 
 
 ## Getting Started
-Clone the repo,and update environment variables in `.env` and/or `.env.local` file, and need to add [firebase adminSDK](https://firebase.google.com/docs/admin/setup) in ./backend:
+### by trying Demo
+[Demo page](https://meal-order-app-ryoosukesaito.vercel.app/)<br/>
+```bash
+## Login information 
+Email: admin@admin.com
+Password: admin123456789
+```
+<br/>
+
+### By Cloning this repository
+Clone the repo,and update environment variables in `.env` and/or `.env.local` file, and need to add [firebase adminSDK](https://firebase.google.com/docs/admin/setup) in `backend` folder:
 
 
 ```bash
