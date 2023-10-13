@@ -43,7 +43,6 @@ $ npm install && npm run dev
 
 - image uploading
   Next cloudinary [ref](https://www.npmjs.com/package/next-cloudinary) , [How to use with React](https://www.mridul.tech/blogs/how-to-upload-images-to-cloudinary-with-react-js)
-
 - firebase
 - Zustand [ref](https://docs.pmnd.rs/zustand/getting-started/introduction)
 - 
