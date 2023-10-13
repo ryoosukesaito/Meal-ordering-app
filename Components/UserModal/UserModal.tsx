@@ -18,9 +18,10 @@ export function UserModal() {
 		state.isOpenUserModal,
 		state.closeUserModal
 	])
-	const [cartItems, setCartItems] = useCartStore((state) => [
+	const [cartItems, setCartItems, addOrder] = useCartStore((state) => [
 		state.cartItems,
-		state.setCartItems
+		state.setCartItems,
+		state.addOrder
 	])
 
 	const { loading, error, data } = useQuery(GET_ALLERGIES_BY_ID_USER, {
@@ -52,17 +53,7 @@ export function UserModal() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-
-		const orderedItemData: CartItem = {
-			id: item.id,
-			title: item.title,
-			price: item.price,
-			image: item.image,
-			count: count
-		}
-		const updatedItemData = [...cartItems.items, orderedItemData]
-
-		setCartItems(updatedItemData)
+		addOrder(item, cartItems.items, count)
 		handleClose()
 	}
 
