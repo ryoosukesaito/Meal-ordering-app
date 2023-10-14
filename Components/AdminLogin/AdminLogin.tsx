@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import { auth } from '@/firebase'
 
-export function Login() {
+export function AdminLogin() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -69,7 +69,7 @@ export function Login() {
 						<a href="/">Forget the password?</a>
 					</div> */}
 					<div className="text-center underline  hover:opacity-50">
-						<a href="/user">Ready to order for customer??</a>
+						<a href="/">Ready to order for customer??</a>
 					</div>
 				</form>
 			</div>

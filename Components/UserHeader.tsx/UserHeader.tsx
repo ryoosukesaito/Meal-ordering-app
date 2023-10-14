@@ -19,9 +19,10 @@ export const UserHeader = () => {
 					href={'/user'}
 					className="inline-flex items-center text-lg font-semibold hover:text-gray-300"
 				>
+					{/* <div></div> */}
 					<Image
 						alt="Logo"
-						src={'/order-meal-logo.png'}
+						src={'/assets/order-meal-logo.png'}
 						width={100}
 						height={100}
 						className="mr-3 h-9 w-9"

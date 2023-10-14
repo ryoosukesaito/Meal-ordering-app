@@ -1,9 +1,9 @@
-import { Login } from '@/Components/Login'
+import { AdminLogin } from '@/Components/AdminLogin/AdminLogin'
 
 function page() {
 	return (
 		<div>
-			<Login />
+			<AdminLogin />
 		</div>
 	)
 }
