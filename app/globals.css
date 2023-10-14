@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=Georama:ital,wght@1,600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,4 +17,8 @@
         scrollbar-width: none;  /* Firefox */
     }
   
+}
+
+h1{
+    font-family: 'Delius Swash Caps', cursive;
 }
