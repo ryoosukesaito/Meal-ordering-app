@@ -32,8 +32,17 @@ const typeDefs = gql`
     people: Int!
   }
 
+  type Orders {
+    id: String!
+    tableName: String!
+    order: [Order]!
+    time: String!
+    checked: Boolean!
+  }
+
   type Query {
     items: [Items]
+    orders: [Orders]
     getAllergiesById(id: String!): Allergies
     getHistoriesById(id: String!): Histories
   }
@@ -46,7 +55,9 @@ const resolvers = {
         const itemsSnapshot = await AdminDB.collection('items').get()
         return itemsSnapshot.docs.map((doc) => doc.data())
       } catch (error) {
-        return new Error()
+        return new Error(
+          'There was an error with items on Query: ' + JSON.stringify(error)
+        )
       }
     },
     getAllergiesById: async (_: any, { id }: { id: string }) => {
@@ -55,7 +66,19 @@ const resolvers = {
         const itemData = itemSnapshot.data()
         return itemData
       } catch (error) {
-        return new Error()
+        return new Error(
+          'There was an error with getAllergiesById: ' + JSON.stringify(error)
+        )
+      }
+    },
+    orders: async () => {
+      try {
+        const ordersSnapshot = await AdminDB.collection('orders').get()
+        return ordersSnapshot.docs.map((doc) => doc.data())
+      } catch (error) {
+        return new Error(
+          'There was an error with orders on Query: ' + JSON.stringify(error)
+        )
       }
     },
     getHistoriesById: async (_: any, { id }: { id: string }) => {
@@ -68,7 +91,9 @@ const resolvers = {
           return historiesData
         }
       } catch (error) {
-        return new Error()
+        return new Error(
+          'There was an error with getHistoriesById: ' + JSON.stringify(error)
+        )
       }
     }
   }

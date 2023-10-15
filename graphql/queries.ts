@@ -44,3 +44,19 @@ export const GET_HISTORIES_BY_ID_USER = gql`
     }
   }
 `
+
+export const GET_ALL_ORDERS = gql`
+  query {
+    orders {
+      id
+      tableName
+      order {
+        id
+        title
+        count
+      }
+      time
+      checked
+    }
+  }
+`

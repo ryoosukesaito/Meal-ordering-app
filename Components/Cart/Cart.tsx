@@ -56,11 +56,11 @@ export const Cart = () => {
       const id = uuidv4()
       await setDoc(doc(db, 'orders', id), {
         id: id!,
-        CustomerId: customer.id!,
+        customerId: customer.id!,
         tableName: customer.tableName!,
         order: cartItems.items!,
         time: formattedDate!,
-        Checked: false!
+        checked: false!
       })
 
       const snapshot = await getDoc(doc(db, 'customer', customer.id))

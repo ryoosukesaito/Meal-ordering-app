@@ -13,7 +13,7 @@ export function Header() {
     signOut(auth)
       .then(() => {
         console.log('User logged out')
-        window.location.replace('/')
+        window.location.replace('/admin/login')
       })
       .catch((error) => {
         console.log('there was an error on Logout>> ', error.message)
@@ -53,6 +53,32 @@ export function Header() {
               >
                 <Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="px-1 py-1 ">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={() =>
+                            window.location.replace('/admin/dashboard')
+                          }
+                          className={`${
+                            active ? 'bg-gray-200 text-black' : 'text-gray-500'
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        >
+                          Dashboard
+                        </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={() => window.location.replace('/admin/edit')}
+                          className={`${
+                            active ? 'bg-gray-200 text-black' : 'text-gray-500'
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        >
+                          Edit menu
+                        </button>
+                      )}
+                    </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
                         <button
