@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { Cart } from '@/Components/Cart/Cart'
 import { client } from '@/graphql/apollo-client'
 import { GET_ALL_ITEMS_USER } from '@/graphql/queries'
+import { useAuthStore } from '@/store/AuthStore'
 import { useItemsStore } from '@/store/ItemsStore'
 import { useModalStore } from '@/store/ModalStore'
 
@@ -22,9 +23,13 @@ export function UserItems() {
 
 	const [cartVisible] = useModalStore((state) => [state.cartVisible])
 
+	const [customer] = useAuthStore((state) => [state.customer])
+
 	const getItem = () => {
 		setItemsList(data)
 	}
+
+	// console.log(customer)
 
 	useEffect(() => {
 		getItem()

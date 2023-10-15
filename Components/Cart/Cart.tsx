@@ -4,13 +4,16 @@ import {
 	ChevronLeftIcon,
 	ClipboardDocumentIcon
 } from '@heroicons/react/24/outline'
+import { doc, setDoc, updateDoc } from 'firebase/firestore'
 import { useMemo } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
+import { db } from '@/firebase'
+import { useAuthStore } from '@/store/AuthStore'
 import { useCartStore } from '@/store/CartStore'
 import { useModalStore } from '@/store/ModalStore'
 
 import { CartItem } from './CartItem/CartItem'
-
 export const Cart = () => {
 	const [cartItems, setCartItems, price, quantity, setPrice, setQuantity] =
 		useCartStore((state) => [
@@ -25,6 +28,8 @@ export const Cart = () => {
 		state.cartVisible,
 		state.closeCart
 	])
+
+	const [customer] = useAuthStore((state) => [state.customer])
 
 	const calculateTotalFunc = useMemo(() => {
 		if (cartItems) {
@@ -41,8 +46,44 @@ export const Cart = () => {
 		}
 	}, [cartItems])
 
-	const handleSubmit = () => {
-		setCartItems([])
+	const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+		const date = new Date()
+		const formattedDate = formatDate(date, 'WW, HH:MM/ampm')
+
+		try {
+			const id = uuidv4()
+			await setDoc(doc(db, 'order', id), {
+				id: id!,
+				CustomerId: customer.id!,
+				tableName: customer.tableName!,
+				order: cartItems.items!,
+				time: formattedDate!,
+				Checked: false!
+			})
+			await updateDoc(doc(db, 'customer', customer.id), {
+				order: [...cartItems.items!]
+			})
+
+			setCartItems([])
+		} catch (error) {
+			console.error('Order is invalid for the error >>', error)
+		}
+	}
+
+	function formatDate(date: Date, format: string) {
+		const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+		let hours = date.getHours()
+		const ampm = hours < 12 ? 'AM' : 'PM'
+		hours = hours % 12
+		hours = hours !== 0 ? hours : 12
+
+		format = format.replace('WW', weekday[date.getDay()])
+		format = format.replace('HH', hours.toString())
+		format = format.replace('MM', date.getMinutes().toString())
+		format = format.replace('ampm', ampm)
+
+		return format
 	}
 
 	return (

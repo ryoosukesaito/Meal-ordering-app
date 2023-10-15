@@ -1,29 +1,38 @@
 'use client'
 
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '@/firebase'
+import { useAuthStore } from '@/store/AuthStore'
 
 export function Login() {
-	const [people, setPeople] = useState(0)
-	const [tableName, setTableName] = useState('')
+	const [people, setPeople] = useState<number>(1)
+	const [tableName, setTableName] = useState<string>(TABLE_DATA[0].name)
+
+	const [customer, setCustomer] = useAuthStore((state) => [
+		state.customer,
+		state.setCustomer
+	])
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+
 		try {
 			const id = uuidv4()
-
 			await setDoc(doc(db, 'customer', id), {
-				id: id,
-				people: people,
-				tableName: tableName,
+				id: id!,
+				people: people!,
+				tableName: tableName!,
 				order: []
 			})
 
+			const customerSnapshot = await getDoc(doc(db, 'customer', id))
+			const customerData = customerSnapshot.data()
+			if (customerData) setCustomer(customerData.id, customerData.tableName)
 			window.location.replace('/user')
 		} catch (error) {
 			console.error('There is something wrong in user Login >> ', error)
@@ -42,12 +51,14 @@ export function Login() {
 				/>
 			</div>
 			<div className="z-20 min-w-fit p-10">
+				{/* Admin login link */}
 				<Link
 					href={'/admin/login'}
 					className="absolute right-5 top-3 rounded-xl bg-gray-400 bg-opacity-70 p-2 text-white underline underline-offset-2"
 				>
 					<p>Admin Login</p>
 				</Link>
+
 				<div className="mb-12 flex items-center justify-center text-4xl font-semibold">
 					<h1 className="text-white">Order Meal</h1>
 				</div>
