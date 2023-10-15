@@ -1,11 +1,11 @@
-import { AdminOrderLog } from '@/Components/AdminOrderLog/AdminOrderLog'
 import { Header } from '@/Components/Header/Header'
+import { Items } from '@/Components/ItemsList/ItemsList'
 
 function page() {
   return (
     <>
       <Header />
-      <AdminOrderLog />
+      <Items />
     </>
   )
 }
