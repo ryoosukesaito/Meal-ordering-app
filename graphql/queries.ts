@@ -60,3 +60,51 @@ export const GET_ALL_ORDERS = gql`
     }
   }
 `
+
+export const SET_NEW_ORDER = gql`
+  mutation SetNewOrder(
+    $id: String!
+    $customerId: String!
+    $tableName: String!
+    $order: [OrderInput]!
+    $time: String!
+    $checked: Boolean!
+  ) {
+    setNewOrder(
+      id: $id
+      customerId: $customerId
+      tableName: $tableName
+      order: $order
+      time: $time
+      checked: $checked
+    ) {
+      id
+      customerId
+      tableName
+      order {
+        id
+        image
+        price
+        title
+        count
+      }
+      time
+      checked
+    }
+  }
+`
+export const ORDER_ADDED = gql`
+  subscription OrderAdded {
+    orderAdded {
+      id
+      tableName
+      order {
+        id
+        title
+        count
+      }
+      time
+      checked
+    }
+  }
+`
