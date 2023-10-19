@@ -1,21 +1,26 @@
 'use client'
 
+import { useMutation } from '@apollo/client'
 import {
-  CheckCircleIcon,
   ChevronLeftIcon,
+  CheckCircleIcon,
   ClipboardDocumentIcon
 } from '@heroicons/react/24/outline'
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '@/firebase'
+import { client } from '@/graphql/apollo-client'
+import { SET_NEW_ORDER } from '@/graphql/queries'
 import { useAuthStore } from '@/store/AuthStore'
 import { useCartStore } from '@/store/CartStore'
 import { useModalStore } from '@/store/ModalStore'
 
 import { CartItem } from './CartItem/CartItem'
 export const Cart = () => {
+  const [setNewOrder, { error }] = useMutation(SET_NEW_ORDER, { client })
+
   const [cartItems, setCartItems, price, quantity, setPrice, setQuantity] =
     useCartStore((state) => [
       state.cartItems,
@@ -51,28 +56,41 @@ export const Cart = () => {
     e.preventDefault()
     const date = new Date()
     const formattedDate = formatDate(date, 'WW, HH:MM/ampm')
+    const id = uuidv4()
 
     try {
-      const id = uuidv4()
-      await setDoc(doc(db, 'orders', id), {
-        id: id!,
-        customerId: customer.id!,
-        tableName: customer.tableName!,
-        order: cartItems.items!,
-        time: formattedDate!,
-        checked: false!
+      console.log('client>>> ', client)
+      await setNewOrder({
+        variables: {
+          id: id!,
+          customerId: customer.id!,
+          tableName: customer.tableName!,
+          order: cartItems.items!,
+          time: formattedDate!,
+          checked: false!
+        }
       })
 
       const snapshot = await getDoc(doc(db, 'customer', customer.id))
       const customerData = snapshot.data()
-      const prevOrder = customerData?.order
+      let prevOrder: CartItem[] | undefined
+
+      if (customerData?.order) {
+        prevOrder = customerData?.order
+      }
+
+      const updateCustomerItems =
+        prevOrder !== undefined
+          ? [...prevOrder, ...cartItems.items]
+          : [...cartItems.items]
+
       await updateDoc(doc(db, 'customer', customer.id), {
-        order: [...prevOrder, ...cartItems.items!]
+        order: updateCustomerItems
       })
 
       setCartItems([])
     } catch (error) {
-      console.error('Order is invalid for the error >>', error)
+      console.error('Order is invalid for the error', error)
     }
   }
 

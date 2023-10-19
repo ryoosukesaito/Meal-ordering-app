@@ -1,10 +1,10 @@
 'use client'
 
-import { useQuery } from '@apollo/client'
+import { useQuery, useSubscription } from '@apollo/client'
 import { useEffect, useState } from 'react'
 
 import { client } from '@/graphql/apollo-client'
-import { GET_ALL_ORDERS } from '@/graphql/queries'
+import { GET_ALL_ORDERS, ORDER_ADDED } from '@/graphql/queries'
 
 interface OrderType {
   id: string
@@ -16,18 +16,25 @@ interface OrderType {
 
 export const AdminOrderLog = () => {
   const { data, loading, error } = useQuery(GET_ALL_ORDERS, { client })
+  const { data: subscriptionData } = useSubscription(ORDER_ADDED, { client })
+
   const [orders, setOrders] = useState<OrderType[]>([])
   const getOrder = () => {
     if (data) {
-      console.log('data from AdminOrderLog>>> ', data)
       setOrders(data.orders)
     }
   }
 
-  console.log(orders)
   useEffect(() => {
     getOrder()
   }, [data])
+
+  useEffect(() => {
+    if (subscriptionData) {
+      const newOrder: OrderType = subscriptionData.orderAdded
+      setOrders((prev) => [...prev, newOrder])
+    }
+  }, [subscriptionData])
   return (
     <div className="flex h-screen w-full items-center justify-center px-14 pb-5 pt-16">
       <div className="h-full w-full rounded-xl bg-white">
@@ -35,13 +42,14 @@ export const AdminOrderLog = () => {
           <section id="title" className="text-4xl font-bold">
             <p>Order</p>
           </section>
+
           <section id="order" className="flex flex-row flex-wrap">
             {orders?.map((order, idx) => (
               <div
                 key={idx}
                 className="m-3 inline-flex w-fit flex-col  rounded-xl shadow-xl "
               >
-                <div className="rounded-t-xl border border-b-2 border-b-black bg-gray-200 px-5 py-2">
+                <div className="rounded-t-xl border-b border-gray-500/50 bg-gray-200 px-5 py-2">
                   <p>Table: {order.tableName}</p>
                   <p>Time: {order.time}</p>
                 </div>
