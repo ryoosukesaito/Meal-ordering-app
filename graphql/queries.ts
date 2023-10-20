@@ -57,6 +57,7 @@ export const GET_ALL_ORDERS = gql`
       }
       time
       checked
+      timestamp
     }
   }
 `
@@ -69,6 +70,7 @@ export const SET_NEW_ORDER = gql`
     $order: [OrderInput]!
     $time: String!
     $checked: Boolean!
+    $timestamp: String!
   ) {
     setNewOrder(
       id: $id
@@ -77,6 +79,7 @@ export const SET_NEW_ORDER = gql`
       order: $order
       time: $time
       checked: $checked
+      timestamp: $timestamp
     ) {
       id
       customerId
@@ -90,6 +93,7 @@ export const SET_NEW_ORDER = gql`
       }
       time
       checked
+      timestamp
     }
   }
 `
@@ -105,6 +109,7 @@ export const ORDER_ADDED = gql`
       }
       time
       checked
+      timestamp
     }
   }
 `

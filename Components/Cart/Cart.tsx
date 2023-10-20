@@ -54,12 +54,11 @@ export const Cart = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    const date = new Date()
+    const date: Date = new Date()
     const formattedDate = formatDate(date, 'WW, HH:MM/ampm')
     const id = uuidv4()
-
+    const timestamp = new Date().toISOString()
     try {
-      console.log('client>>> ', client)
       await setNewOrder({
         variables: {
           id: id!,
@@ -67,7 +66,8 @@ export const Cart = () => {
           tableName: customer.tableName!,
           order: cartItems.items!,
           time: formattedDate!,
-          checked: false!
+          checked: false!,
+          timestamp: timestamp
         }
       })
 
@@ -97,13 +97,16 @@ export const Cart = () => {
   function formatDate(date: Date, format: string) {
     const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     let hours = date.getHours()
-    const ampm = hours < 12 ? 'AM' : 'PM'
     hours = hours % 12
     hours = hours !== 0 ? hours : 12
+    const ampm = hours < 12 ? 'AM' : 'PM'
+
+    let minutes = date.getMinutes().toString()
+    minutes = ('0' + minutes).slice(-2)
 
     format = format.replace('WW', weekday[date.getDay()])
     format = format.replace('HH', hours.toString())
-    format = format.replace('MM', date.getMinutes().toString())
+    format = format.replace('MM', minutes)
     format = format.replace('ampm', ampm)
 
     return format

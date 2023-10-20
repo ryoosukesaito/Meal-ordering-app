@@ -6,14 +6,6 @@ import { useEffect, useState } from 'react'
 import { client } from '@/graphql/apollo-client'
 import { GET_ALL_ORDERS, ORDER_ADDED } from '@/graphql/queries'
 
-interface OrderType {
-  id: string
-  tableName: string
-  order: CartItem[]
-  time: string
-  checked: boolean
-}
-
 export const AdminOrderLog = () => {
   const { data, loading, error } = useQuery(GET_ALL_ORDERS, { client })
   const { data: subscriptionData } = useSubscription(ORDER_ADDED, { client })
@@ -21,8 +13,19 @@ export const AdminOrderLog = () => {
   const [orders, setOrders] = useState<OrderType[]>([])
   const getOrder = () => {
     if (data) {
-      setOrders(data.orders)
+      getSortTimeOfOrder(data.orders)
     }
+  }
+
+  const getSortTimeOfOrder = (data: OrderType[]) => {
+    const ordersData = [...data].sort((a, b) => {
+      const olderOrder = new Date(a.timestamp)
+      const laterOrder = new Date(b.timestamp)
+
+      return olderOrder < laterOrder ? -1 : 1
+    })
+
+    setOrders(ordersData)
   }
 
   useEffect(() => {
