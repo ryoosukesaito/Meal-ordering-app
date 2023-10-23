@@ -29,12 +29,12 @@ export function UserItem({ item }: Props) {
               className="h-full w-full  rounded-t-md object-cover "
               alt="item-image"
               src={item.image}
-              width={300}
-              height={300}
+              width={800}
+              height={800}
             />
           </section>
           <section className="flex h-28 flex-col justify-between py-4 lg:p-5 ">
-            <div className="flex h-full flex-col justify-between">
+            <div className="flex h-full  flex-col justify-between">
               <div className="md:text-md px-3 text-xs lg:text-lg">
                 {item.title}
               </div>

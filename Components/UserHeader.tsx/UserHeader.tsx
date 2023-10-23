@@ -23,7 +23,7 @@ export const UserHeader = () => {
 
   return (
     <div className="fixed z-20 w-full bg-white text-black shadow-2xl">
-      <div className="flex h-14 items-center justify-between px-5">
+      <div className="flex h-14 items-center justify-between sm:px-5">
         <Link
           href={'/user'}
           className="inline-flex items-center text-lg font-semibold hover:text-gray-300"
@@ -44,12 +44,12 @@ export const UserHeader = () => {
             className="relative"
             title="Open order list"
           >
-            <ShoppingCartIcon className="mr-5 h-6 w-6" />
+            <ShoppingCartIcon className="mr-2 h-6 w-6 sm:mr-5" />
             {useMemo(
               () => (
                 <div>
                   {cartItems.items.length > 0 && (
-                    <span className="absolute right-0 top-0 rounded-full bg-red-600 px-2  py-1 text-xs text-white">
+                    <span className="absolute right-0 top-0 rounded-full bg-red-600 px-1 text-xs text-white sm:px-2 sm:py-1">
                       {`${cartItems.items.length}`}
                     </span>
                   )}
@@ -67,7 +67,7 @@ export const UserHeader = () => {
             >
               <div>
                 <Menu.Button className="group inline-flex w-full items-center justify-center rounded-md bg-opacity-20 px-2 py-1 text-sm font-medium text-black hover:bg-gray-100">
-                  <ClipboardDocumentCheckIcon className="h-8 w-8" />
+                  <ClipboardDocumentCheckIcon className="h-6 w-6" />
                   <ChevronDownIcon
                     className="-mr-1 ml-2 h-5 w-5 text-gray-300 group-hover:text-gray-500"
                     aria-hidden="true"

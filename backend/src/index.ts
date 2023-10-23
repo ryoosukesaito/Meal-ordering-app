@@ -128,7 +128,9 @@ const resolvers = {
       try {
         const ordersSnapshot = await AdminDB.collection('orders').get()
 
-        return ordersSnapshot.docs.map((doc) => doc.data())
+        return ordersSnapshot.docs
+          .map((doc) => doc.data())
+          .filter((data) => data.checked === false)
       } catch (error) {
         return new Error(
           'There was an error with orders on Query: ' + JSON.stringify(error)
