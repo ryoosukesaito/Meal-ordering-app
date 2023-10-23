@@ -10,6 +10,7 @@ import { AdminDB } from './firebaseBackend'
 import { PubSub } from 'graphql-subscriptions'
 import cors from 'cors'
 import { json } from 'body-parser'
+
 dotenv.config()
 const app = express()
 // Crete server for using GraphQL subscriptions
@@ -30,6 +31,7 @@ interface Orders {
   order: Order[]
   time: string
   checked: boolean
+  timestamp: string
 }
 
 const typeDefs = gql`
@@ -64,6 +66,7 @@ const typeDefs = gql`
     order: [Order]!
     time: String!
     checked: Boolean!
+    timestamp: String!
   }
 
   type Query {
@@ -89,6 +92,7 @@ const typeDefs = gql`
       order: [OrderInput]!
       time: String!
       checked: Boolean!
+      timestamp: String!
     ): Orders
   }
 
@@ -123,7 +127,10 @@ const resolvers = {
     orders: async () => {
       try {
         const ordersSnapshot = await AdminDB.collection('orders').get()
-        return ordersSnapshot.docs.map((doc) => doc.data())
+
+        return ordersSnapshot.docs
+          .map((doc) => doc.data())
+          .filter((data) => data.checked === false)
       } catch (error) {
         return new Error(
           'There was an error with orders on Query: ' + JSON.stringify(error)
@@ -149,14 +156,16 @@ const resolvers = {
   Mutation: {
     setNewOrder: async (_: any, args: Orders) => {
       // DB manipulation
-      const { id, customerId, tableName, order, time, checked } = args
+      const { id, customerId, tableName, order, time, checked, timestamp } =
+        args
       await AdminDB.collection('orders').doc(id).set({
         id: id!,
         customerId: customerId!,
         tableName: tableName!,
         order: order!,
         time: time!,
-        checked: checked!
+        checked: checked!,
+        timestamp: timestamp!
       })
 
       const snapshot = await AdminDB.collection('orders').doc(id).get()

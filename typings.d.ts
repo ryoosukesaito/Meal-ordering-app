@@ -13,3 +13,12 @@ interface CartItem {
   image: string
   count: number
 }
+
+interface OrderType {
+  id: string
+  tableName: string
+  order: CartItem[]
+  time: string
+  checked: boolean
+  timestamp: string
+}
