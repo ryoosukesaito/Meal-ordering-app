@@ -1,11 +1,11 @@
-import { Header } from '@/Components/Header/Header'
-import { Items } from '@/Components/ItemsList/ItemsList'
+import { AdminHeader } from '@/Components/AdminHeader/AdminHeader'
+import { AdminItemsList } from '@/Components/AdminItemsList/AdminItemsList'
 
 function page() {
   return (
     <>
-      <Header />
-      <Items />
+      <AdminHeader />
+      <AdminItemsList />
     </>
   )
 }

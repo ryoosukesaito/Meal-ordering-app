@@ -2,23 +2,25 @@
 
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
-import { signOut } from 'firebase/auth'
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 
-import { auth } from '@/firebase'
+import { useAdminStore, useAuthStore } from '@/store/AuthStore'
 
-export function Header() {
+export function AdminHeader() {
+  const [customer] = useAuthStore((state) => [state.customer])
+  const [isLoggedIn, setAdminLogout] = useAdminStore((state) => [
+    state.isLoggedIn,
+    state.setAdminLogout
+  ])
   const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        console.log('User logged out')
-        window.location.replace('/admin/login')
-      })
-      .catch((error) => {
-        console.log('there was an error on Logout>> ', error.message)
-      })
+    setAdminLogout()
   }
+
+  useEffect(() => {
+    if (!isLoggedIn || customer.id !== '')
+      window.location.replace('/admin/error')
+  }, [])
 
   return (
     <div className="fixed w-full bg-white text-black shadow-2xl">

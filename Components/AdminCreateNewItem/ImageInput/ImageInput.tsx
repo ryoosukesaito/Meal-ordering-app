@@ -1,10 +1,11 @@
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
 import { useRef } from 'react'
 
-import { useItemsStore } from '@/store/ItemsStore'
+interface PropsType {
+  setFile: (file: File | null) => void
+}
 
-export const ImageInput: React.FC = () => {
-  const [setFile] = useItemsStore((state) => [state.setFile])
-
+export const ImageInput: React.FC<PropsType> = ({ setFile }) => {
   const imagePickerRef = useRef<HTMLInputElement>(null)
 
   return (
@@ -19,6 +20,9 @@ export const ImageInput: React.FC = () => {
         className="my-3 flex w-fit flex-row items-center rounded-full border border-gray-300 px-5 py-2 font-medium hover:bg-slate-300 hover:text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       >
         upload image
+        <div className="mx-3">
+          <ArrowDownTrayIcon className="h-5 w-5" />
+        </div>
       </button>
 
       <input

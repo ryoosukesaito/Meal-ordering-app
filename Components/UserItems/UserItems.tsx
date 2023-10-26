@@ -3,7 +3,7 @@
 import { useQuery } from '@apollo/client'
 import { useEffect } from 'react'
 
-import { Cart } from '@/Components/Cart/Cart'
+import { UserCart } from '@/Components/UserCart/UserCart'
 import { client } from '@/graphql/apollo-client'
 import { GET_ALL_ITEMS_USER } from '@/graphql/queries'
 import { useAuthStore } from '@/store/AuthStore'
@@ -33,12 +33,18 @@ export function UserItems() {
     getItem()
   }, [data])
 
+  useEffect(() => {
+    if (customer.id === '') {
+      window.location.replace('/')
+    }
+  }, [])
+
   if (loading) <p>Loading...</p>
   if (error) <p>Error: {error.message}</p>
 
   return (
     <>
-      {cartVisible && <Cart />}
+      {cartVisible && <UserCart />}
       <div className="no-scrollbar h-full w-full overflow-y-scroll pt-20 md:px-20">
         <div className="rounded-xl bg-white px-5 py-10 shadow-lg md:px-16">
           <div className="grid grid-cols-2 gap-5  md:grid-cols-3 lg:grid-cols-4 ">

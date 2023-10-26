@@ -1,9 +1,9 @@
-import { CreateNewItem } from '@/Components/CreateNewItem/CreateNewItem'
+import { AdminCreateNewItem } from '@/Components/AdminCreateNewItem/AdminCreateNewItem'
 
 function page() {
   return (
     <div>
-      <CreateNewItem />
+      <AdminCreateNewItem />
     </div>
   )
 }

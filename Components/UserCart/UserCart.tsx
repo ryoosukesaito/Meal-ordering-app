@@ -17,8 +17,8 @@ import { useAuthStore } from '@/store/AuthStore'
 import { useCartStore } from '@/store/CartStore'
 import { useModalStore } from '@/store/ModalStore'
 
-import { CartItem } from './CartItem/CartItem'
-export const Cart = () => {
+import { UserCartItem } from './UserCartItem/UserCartItem'
+export const UserCart = () => {
   const [setNewOrder, { error }] = useMutation(SET_NEW_ORDER, { client })
 
   const [cartItems, setCartItems, price, quantity, setPrice, setQuantity] =
@@ -138,7 +138,7 @@ export const Cart = () => {
               <div className="no-scrollbar mb-1 h-full max-h-[550px]  overflow-y-scroll">
                 {cartItems?.items.map((item: CartItem, idx: number) => (
                   <div key={idx}>
-                    <CartItem item={item} idx={idx} />
+                    <UserCartItem item={item} idx={idx} />
                   </div>
                 ))}
               </div>

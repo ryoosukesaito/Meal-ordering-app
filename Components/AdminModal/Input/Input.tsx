@@ -11,8 +11,9 @@ export const Input: React.FC<InputValue> = ({ id }) => {
     state.price,
     state.setPrice
   ])
+
   return (
-    <div>
+    <div className="my-3">
       <p className=" text-2xl font-bold">{`${id === 0 ? 'Title' : 'Price'}`}</p>
       <div className="flex flex-row items-center ">
         {id === 1 && <p className="mr-2 font-bold">$</p>}

@@ -34,6 +34,14 @@ interface Orders {
   timestamp: string
 }
 
+interface ItemsType {
+  id: string
+  title: string
+  price: string
+  allergies: string[]
+  image: string
+}
+
 const typeDefs = gql`
   type Items {
     id: String
@@ -94,10 +102,19 @@ const typeDefs = gql`
       checked: Boolean!
       timestamp: String!
     ): Orders
+
+    updateMenuData(
+      id: String!
+      title: String!
+      price: String!
+      allergies: [String]!
+      image: String!
+    ): Items!
   }
 
   type Subscription {
     orderAdded: Orders!
+    menuUpdated: String!
   }
 `
 
@@ -128,9 +145,10 @@ const resolvers = {
       try {
         const ordersSnapshot = await AdminDB.collection('orders').get()
 
-        return ordersSnapshot.docs
+        const orderData = ordersSnapshot.docs
           .map((doc) => doc.data())
           .filter((data) => data.checked === false)
+        return orderData
       } catch (error) {
         return new Error(
           'There was an error with orders on Query: ' + JSON.stringify(error)
@@ -155,31 +173,64 @@ const resolvers = {
   },
   Mutation: {
     setNewOrder: async (_: any, args: Orders) => {
-      // DB manipulation
-      const { id, customerId, tableName, order, time, checked, timestamp } =
-        args
-      await AdminDB.collection('orders').doc(id).set({
-        id: id!,
-        customerId: customerId!,
-        tableName: tableName!,
-        order: order!,
-        time: time!,
-        checked: checked!,
-        timestamp: timestamp!
-      })
+      try {
+        // DB manipulation
+        const { id, customerId, tableName, order, time, checked, timestamp } =
+          args
+        await AdminDB.collection('orders').doc(id).set({
+          id: id!,
+          customerId: customerId!,
+          tableName: tableName!,
+          order: order!,
+          time: time!,
+          checked: checked!,
+          timestamp: timestamp!
+        })
 
-      const snapshot = await AdminDB.collection('orders').doc(id).get()
-      const ordersData = snapshot.data()
+        const snapshot = await AdminDB.collection('orders').doc(id).get()
+        const ordersData = snapshot.data()
 
-      // call subscription
-      pubsub.publish('ORDER_ADDED', { orderAdded: ordersData })
+        // call subscription
+        pubsub.publish('ORDER_ADDED', { orderAdded: ordersData })
 
-      return ordersData
+        return ordersData
+      } catch (error) {
+        return new Error(
+          'There was an error with setNewOrder: ' + JSON.stringify(error)
+        )
+      }
+    },
+    updateMenuData: async (_: any, args: ItemsType) => {
+      try {
+        const { id, title, price, allergies, image } = args
+        console.log('image backend >>> ', image)
+        await AdminDB.collection('items').doc(id).update({
+          title: title,
+          price: price,
+          allergies: allergies,
+          image: image
+        })
+
+        const snapshot = await AdminDB.collection('items').doc(id).get()
+        const updateMenuData = snapshot.data()
+
+        pubsub.publish('MENU_UPDATED', { menuEdited: id })
+
+        return updateMenuData
+      } catch (error) {
+        return new Error(
+          'There was an error with editMenu: ' + JSON.stringify(error)
+        )
+      }
     }
   },
   Subscription: {
     orderAdded: {
       subscribe: () => pubsub.asyncIterator(['ORDER_ADDED'])
+    },
+
+    menuUpdated: {
+      subscribe: () => pubsub.asyncIterator(['MENU_UPDATED'])
     }
   }
 }

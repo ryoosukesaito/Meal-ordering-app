@@ -13,7 +13,7 @@ interface ItemData {
   idx: number
 }
 
-export const CartItem: React.FC<ItemData> = ({ item, idx }) => {
+export const UserCartItem: React.FC<ItemData> = ({ item, idx }) => {
   const [cartItems, setCartItems] = useCartStore((state) => [
     state.cartItems,
     state.setCartItems

@@ -9,14 +9,14 @@ type Props = {
 }
 
 export function UserItem({ item }: Props) {
-  const [setItemAsProps, setId] = useItemsStore((state) => [
-    state.setItemAsProps,
+  const [setItem, setId] = useItemsStore((state) => [
+    state.setItem,
     state.setId
   ])
   const openUserModal = useModalStore((state) => state.openUserModal)
 
   const handleModalOpen = () => {
-    setItemAsProps(item)
+    setItem(item)
     openUserModal()
   }
 

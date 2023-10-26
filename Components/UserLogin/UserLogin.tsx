@@ -3,13 +3,13 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '@/firebase'
 import { useAuthStore } from '@/store/AuthStore'
 
-export function Login() {
+export function UserLogin() {
   const [people, setPeople] = useState<number>(1)
   const [tableName, setTableName] = useState<string>(TABLE_DATA[0].name)
 
@@ -39,6 +39,10 @@ export function Login() {
     }
   }
 
+  useEffect(() => {
+    if (customer.id !== '') window.location.replace('/user')
+  }, [])
+
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="absolute z-0 h-screen w-full">
@@ -54,7 +58,7 @@ export function Login() {
         {/* Admin login link */}
         <Link
           href={'/admin/login'}
-          className="absolute right-5 top-3 rounded-xl bg-gray-400 bg-opacity-70 p-2 text-white underline underline-offset-2"
+          className="absolute right-5 top-3 rounded-xl bg-gray-400/70 p-2 text-white underline underline-offset-2 hover:bg-gray-400"
         >
           <p>Admin Login</p>
         </Link>
