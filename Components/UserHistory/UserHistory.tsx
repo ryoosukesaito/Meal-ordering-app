@@ -18,7 +18,10 @@ interface SplitBillData {
 }
 
 export const UserHistory = () => {
-  const [customer] = useAuthStore((state) => [state.customer])
+  const [customer, setCustomer] = useAuthStore((state) => [
+    state.customer,
+    state.setCustomer
+  ])
   const [orders, setOrders] = useState<CartItem[]>([])
   const [price, setPrice] = useState<number>(0)
   const [quantity, setQuantity] = useState<number>(0)
@@ -88,9 +91,20 @@ export const UserHistory = () => {
     }
   }, [orders, data])
 
+  const handleCheckoutCustomer = () => {
+    setCustomer('', '')
+    window.location.replace('/')
+  }
+
   useEffect(() => {
     getHistories()
   }, [data])
+
+  useEffect(() => {
+    if (customer.id === '') {
+      window.location.replace('/')
+    }
+  }, [])
 
   return (
     <>
@@ -186,9 +200,7 @@ export const UserHistory = () => {
                   sm:py-2
                   sm:text-base
 									"
-                  onClick={() => {
-                    window.location.replace('/')
-                  }}
+                  onClick={handleCheckoutCustomer}
                 >
                   Check out
                   <CheckCircleIcon className="ml-3 h-4 w-4" />

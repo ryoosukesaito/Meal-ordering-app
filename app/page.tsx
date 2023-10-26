@@ -1,10 +1,10 @@
 'use client'
-import { Login } from '@/Components/Login/Login'
+import { UserLogin } from '@/Components/UserLogin/UserLogin'
 
 export default function Home() {
   return (
     <main>
-      <Login />
+      <UserLogin />
     </main>
   )
 }

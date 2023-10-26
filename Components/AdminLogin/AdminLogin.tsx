@@ -1,26 +1,34 @@
 'use client'
 
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { auth } from '@/firebase'
+import { useAdminStore, useAuthStore } from '@/store/AuthStore'
 
 export function AdminLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [customer] = useAuthStore((state) => [state.customer])
+  const [isLoggedIn, errorMsg, setAdminLogin] = useAdminStore((state) => [
+    state.isLoggedIn,
+    state.errorMsg,
+    state.setAdminLogin
+  ])
+
+  const getAuthStatus = () => {
+    if (isLoggedIn && customer.id === '')
+      window.location.replace('/admin/dashboard')
+  }
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const admin = userCredential.user
-        window.location.replace('/admin/dashboard')
-      })
-      .catch((err) => {
-        if (err)
-          console.log('There is something wrong with Email or Password.', err)
-      })
+    const credentials = { email, password }
+    setAdminLogin(credentials)
+    if (errorMsg) console.error(errorMsg)
   }
+
+  useEffect(() => {
+    getAuthStatus()
+  }, [])
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -56,6 +64,11 @@ export function AdminLogin() {
               required
             />
           </div>
+          {errorMsg && (
+            <div className="mb-3 inline-flex w-full justify-center">
+              <p className="text-sm text-red-600"> {errorMsg}</p>
+            </div>
+          )}
 
           <div className="text-center">
             <button

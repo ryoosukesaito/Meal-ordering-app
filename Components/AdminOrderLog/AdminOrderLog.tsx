@@ -9,7 +9,10 @@ import { GET_ALL_ORDERS, ORDER_ADDED } from '@/graphql/queries'
 import { AdminOrderItem } from './AdminOrderItem.tsx/AdminOrderItem'
 
 export const AdminOrderLog = () => {
-  const { data, loading, error } = useQuery(GET_ALL_ORDERS, { client })
+  const { data, loading, error } = useQuery(GET_ALL_ORDERS, {
+    client,
+    fetchPolicy: 'no-cache'
+  })
   const { data: subscriptionData } = useSubscription(ORDER_ADDED, { client })
 
   const [orders, setOrders] = useState<OrderType[]>([])
@@ -21,6 +24,9 @@ export const AdminOrderLog = () => {
     if (data) {
       const sortedOrders = getSortTimeOfOrder(data.orders)
       setOrders(sortedOrders)
+    }
+    if (error) {
+      console.error('admin Order Error>>', error.message)
     }
   }
 
@@ -79,6 +85,7 @@ export const AdminOrderLog = () => {
       )
     }
   }, [subscriptionData])
+
   return (
     <div className="flex h-screen w-full items-center justify-center px-3 pb-5 pt-16 md:px-14">
       <div className="h-full w-full rounded-xl bg-white">

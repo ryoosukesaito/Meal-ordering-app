@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_ALL_ITEMS = gql`
-  query {
+  query Items {
     items {
       id
       title
@@ -46,7 +46,7 @@ export const GET_HISTORIES_BY_ID_USER = gql`
 `
 
 export const GET_ALL_ORDERS = gql`
-  query {
+  query Orders {
     orders {
       id
       tableName
@@ -97,6 +97,31 @@ export const SET_NEW_ORDER = gql`
     }
   }
 `
+
+export const UPDATE_MENU_DATA = gql`
+  mutation UpdateMenuData(
+    $id: String!
+    $title: String!
+    $price: String!
+    $allergies: [String]!
+    $image: String!
+  ) {
+    updateMenuData(
+      id: $id
+      title: $title
+      price: $price
+      allergies: $allergies
+      image: $image
+    ) {
+      id
+      title
+      price
+      allergies
+      image
+    }
+  }
+`
+
 export const ORDER_ADDED = gql`
   subscription OrderAdded {
     orderAdded {
@@ -111,5 +136,11 @@ export const ORDER_ADDED = gql`
       checked
       timestamp
     }
+  }
+`
+
+export const MENU_UPDATED = gql`
+  subscription MenuUpdated {
+    menuUpdated
   }
 `

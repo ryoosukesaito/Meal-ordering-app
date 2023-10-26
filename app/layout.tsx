@@ -1,4 +1,4 @@
-import { Modal } from '@/Components/Modal'
+import { AdminModal } from '@/Components/AdminModal/AdminModal'
 import { UserModal } from '@/Components/UserModal/UserModal'
 
 import './globals.css'
@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="no-scrollbar bg-[#F8F8F8]">
         {children}
-        <Modal />
+        <AdminModal />
         <UserModal />
       </body>
     </html>

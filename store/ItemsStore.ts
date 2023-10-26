@@ -15,7 +15,7 @@ interface ItemsState {
   allergies: string[]
   allergyInput: string
   setItemsList: (data: object) => void
-  setItemAsProps: (props: ItemsType) => void
+  setItem: (props: ItemsType) => void
   setId: (id: string) => void
   setTitle: (title: string) => void
   setPrice: (price: string) => void
@@ -23,9 +23,7 @@ interface ItemsState {
   setFile: (file: File | null) => void
   setAllergies: (allergies: string[]) => void
   setAllergyInput: (allergyInput: string) => void
-
-  getItems: () => void
-  setImageFile: (image: File) => Promise<string>
+  setImageFileToUpload: (image: File) => Promise<string>
 }
 
 export const useItemsStore = create<ItemsState>((set, get) => ({
@@ -54,7 +52,7 @@ export const useItemsStore = create<ItemsState>((set, get) => ({
         set({ itemsList: { items: items } })
       }
   },
-  setItemAsProps: (props: ItemsType) => set({ item: props }),
+  setItem: (props: ItemsType) => set({ item: props }),
   setId: (str: string) => set({ id: str }),
   setTitle: (input: string) => set({ title: input }),
   setPrice: (input: string) => set({ price: input }),
@@ -62,9 +60,7 @@ export const useItemsStore = create<ItemsState>((set, get) => ({
   setFile: (file: File | null) => set({ file: file }),
   setAllergies: (arr: string[]) => set({ allergies: arr }),
   setAllergyInput: (input: string) => set({ allergyInput: input }),
-
-  getItems: () => {},
-  setImageFile: async (data: File) => {
+  setImageFileToUpload: async (data: File) => {
     const imageData: string = await uploadImage(data)
     const url: string = imageData
     return url

@@ -10,21 +10,21 @@ type Props = {
   item: ItemsType
 }
 
-export function Item({ item }: Props) {
-  const [title, setTitle, setPrice, setImage, setAllergies, setItemAsProps] =
-    useItemsStore((state) => [
-      state.title,
+export function AdminItem({ item }: Props) {
+  const [setTitle, setPrice, setImage, setAllergies, setItem] = useItemsStore(
+    (state) => [
       state.setTitle,
       state.setPrice,
       state.setImage,
       state.setAllergies,
-      state.setItemAsProps
-    ])
+      state.setItem
+    ]
+  )
   const openModal = useModalStore((state) => state.openModal)
 
   const handleModalOpen = () => {
     openModal()
-    setItemAsProps(item)
+    setItem(item)
     setTitle(item.title)
     setPrice(item.price)
     setAllergies(item.allergies)
@@ -38,8 +38,9 @@ export function Item({ item }: Props) {
           className="h-full w-full rounded-md object-cover"
           alt="item-image"
           src={item.image}
-          width={300}
-          height={300}
+          width={800}
+          height={800}
+          priority={true}
         />
       </section>
 

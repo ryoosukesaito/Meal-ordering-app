@@ -2,8 +2,7 @@
 
 import { doc, setDoc } from 'firebase/firestore'
 import Image from 'next/image'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '@/firebase'
@@ -13,38 +12,36 @@ import { AllergiesInput } from './AllergiesInput/AllergiesInput'
 import { ImageInput } from './ImageInput/ImageInput'
 import { Input } from './Input/Input'
 
-export function CreateNewItem() {
+export function AdminCreateNewItem() {
   const [
     title,
     setTitle,
     price,
     setPrice,
-    file,
-    setFile,
     allergies,
     setAllergies,
-    setImageFile
+    setImage,
+    setImageFileToUpload
   ] = useItemsStore((state) => [
     state.title,
     state.setTitle,
     state.price,
     state.setPrice,
-    state.file,
-    state.setFile,
     state.allergies,
     state.setAllergies,
-    state.setImageFile
+    state.setImage,
+    state.setImageFileToUpload
   ])
 
   const [loading, setLoading] = useState<boolean>(false)
-
+  const [file, setFile] = useState<File | null>(null)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     try {
       // Create a new item
       if (file) {
-        const imageURL = await setImageFile(file)
+        const imageURL = await setImageFileToUpload(file)
         const id = uuidv4()
 
         await setDoc(doc(db, 'items', id), {
@@ -57,18 +54,17 @@ export function CreateNewItem() {
       }
 
       setLoading(false)
-      window.location.replace('/admin/dashboard')
+      window.location.replace('/admin/edit')
     } catch (error) {
       console.log('There is something wrong in addNewItem >> ', error)
       setLoading(false)
     }
   }
 
-  useEffect(() => {
-    setTitle('')
-    setPrice('')
-    setAllergies([])
-  }, [])
+  const handleClose = () => {
+    setImage('')
+    window.location.replace('/admin/edit')
+  }
 
   if (loading)
     return (
@@ -106,7 +102,7 @@ export function CreateNewItem() {
 
             <div className="flex flex-col pl-6">
               {/* image */}
-              <ImageInput />
+              <ImageInput setFile={setFile} />
 
               {/* title */}
               <Input id={0} />
@@ -117,22 +113,20 @@ export function CreateNewItem() {
           </div>
 
           {/* Allergies Input */}
-          <div className="ml-5 mt-8 flex h-auto w-full justify-start">
-            <AllergiesInput />
-          </div>
-          <div className="pt-5">
-            <button
-              type="submit"
-              className="cursor-pointer rounded bg-[#FF7474] px-8 py-2 text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D]"
-            >
-              Update
-            </button>
-          </div>
+
+          <AllergiesInput />
+
+          <button
+            type="submit"
+            className="cursor-pointer rounded bg-[#FF7474] px-8 py-2 text-white hover:bg-[#FFB9B9] hover:text-[#8D8D8D]"
+          >
+            Update
+          </button>
         </form>
 
-        <Link href={'/admin/dashboard'}>
-          <button type="button">Cancel</button>
-        </Link>
+        <button type="button" onClick={handleClose}>
+          Cancel
+        </button>
       </div>
     </div>
   )
